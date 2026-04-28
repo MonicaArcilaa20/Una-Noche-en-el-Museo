@@ -31,13 +31,24 @@ public class CuadroActivablePorApunte : MonoBehaviour
     [SerializeField] private Color colorEmisionReposo = Color.black;
     [SerializeField] private Color colorEmisionActivo = Color.cyan;
 
+    [Header("Overlay de ondas")]
+    [SerializeField] private OverlayMovimientoCuadro overlayOndas;
+    [SerializeField] private bool mostrarOndasSoloConTinta = true;
+
     [Header("Flores oníricas opcionales")]
     [SerializeField] private GameObject grupoFloresOniricas;
     [SerializeField] private Animator[] animadoresFlores;
-    [SerializeField] private string estadoBloomFlor = "Scene";
+    [SerializeField] private string estadoBloomFlor = "Bloom";
     [SerializeField] private bool ocultarFloresCuandoNoApunta = true;
     [SerializeField] private bool resetearFloresAlCancelar = true;
     [SerializeField] private bool mantenerFloresAbiertasAlCompletar = true;
+
+    [Header("Difuminado / aparición suave de flores")]
+    [SerializeField] private bool usarAparicionSuaveFlores = true;
+    [SerializeField] private float duracionDifuminadoFlores = 0.35f;
+    [SerializeField, Range(0f, 1f)] private float escalaInicialFlores = 0.82f;
+    [SerializeField, Range(0f, 1f)] private float alphaInicialFlores = 0f;
+    [SerializeField] private bool intentarControlarAlphaMateriales = true;
 
     [Header("Transición")]
     [SerializeField] private string nombreEscenaSiguiente;
@@ -54,8 +65,21 @@ public class CuadroActivablePorApunte : MonoBehaviour
     private float ultimoTiempoFeedbackSinTinta = -999f;
     private Coroutine corutinaParpadeo;
 
+    private int hashEstadoBloomFlor;
+
+    private float visibilidadFloresActual = 0f;
+    private Transform[] floresTransform;
+    private Vector3[] escalasOriginalesFlores;
+    private Renderer[] renderersFlores;
+    private MaterialPropertyBlock propertyBlockFlores;
+
+    private static readonly int BaseColorID = Shader.PropertyToID("_BaseColor");
+    private static readonly int ColorID = Shader.PropertyToID("_Color");
+
     private void Start()
     {
+        hashEstadoBloomFlor = Animator.StringToHash(estadoBloomFlor);
+
         if (selloMagico != null)
             selloMagico.SetActive(false);
 
@@ -75,6 +99,9 @@ public class CuadroActivablePorApunte : MonoBehaviour
             materialInstancia.SetColor(propiedadEmision, colorEmisionReposo);
         }
 
+        if (overlayOndas != null)
+            overlayOndas.DesactivarOndasInstantaneo();
+
         PrepararFloresOniricas();
     }
 
@@ -83,6 +110,7 @@ public class CuadroActivablePorApunte : MonoBehaviour
         if (completado)
             return;
 
+        bool apuntandoAlCuadro = false;
         bool activando = false;
         bool bloqueadoPorFaltaDeTinta = false;
 
@@ -94,12 +122,16 @@ public class CuadroActivablePorApunte : MonoBehaviour
 
             if (angulo <= anguloMaximo)
             {
+                apuntandoAlCuadro = true;
+
                 if (TieneTintaDisponible())
                     activando = true;
                 else
                     bloqueadoPorFaltaDeTinta = true;
             }
         }
+
+        ActualizarOverlayOndas(apuntandoAlCuadro, bloqueadoPorFaltaDeTinta);
 
         if (bloqueadoPorFaltaDeTinta)
         {
@@ -136,6 +168,19 @@ public class CuadroActivablePorApunte : MonoBehaviour
 
         if (progresoActual >= tiempoNecesario)
             CompletarActivacion();
+    }
+
+    private void ActualizarOverlayOndas(bool apuntandoAlCuadro, bool bloqueadoPorFaltaDeTinta)
+    {
+        if (overlayOndas == null)
+            return;
+
+        bool mostrar = apuntandoAlCuadro;
+
+        if (mostrarOndasSoloConTinta && bloqueadoPorFaltaDeTinta)
+            mostrar = false;
+
+        overlayOndas.SetActivo(mostrar);
     }
 
     private bool TieneTintaDisponible()
@@ -179,7 +224,6 @@ public class CuadroActivablePorApunte : MonoBehaviour
 
     private IEnumerator RutinaParpadeoSenaletica()
     {
-
         if (senaleticaSinTinta == null)
         {
             corutinaParpadeo = null;
@@ -262,6 +306,9 @@ public class CuadroActivablePorApunte : MonoBehaviour
             corutinaParpadeo = null;
         }
 
+        if (overlayOndas != null && !mantenerFloresAbiertasAlCompletar)
+            overlayOndas.DesactivarOndas();
+
         if (mantenerFloresAbiertasAlCompletar)
             ForzarFloresCompletas();
 
@@ -302,6 +349,9 @@ public class CuadroActivablePorApunte : MonoBehaviour
                 corutinaParpadeo = null;
             }
 
+            if (overlayOndas != null)
+                overlayOndas.DesactivarOndas();
+
             ActualizarFloresOniricas(0f, false);
 
             if (mostrarLogs)
@@ -314,7 +364,28 @@ public class CuadroActivablePorApunte : MonoBehaviour
         if (grupoFloresOniricas == null)
             return;
 
-        grupoFloresOniricas.SetActive(false);
+        int cantidadHijos = grupoFloresOniricas.transform.childCount;
+
+        floresTransform = new Transform[cantidadHijos];
+        escalasOriginalesFlores = new Vector3[cantidadHijos];
+
+        for (int i = 0; i < cantidadHijos; i++)
+        {
+            Transform flor = grupoFloresOniricas.transform.GetChild(i);
+            floresTransform[i] = flor;
+            escalasOriginalesFlores[i] = flor.localScale;
+        }
+
+        renderersFlores = grupoFloresOniricas.GetComponentsInChildren<Renderer>(true);
+        propertyBlockFlores = new MaterialPropertyBlock();
+
+        visibilidadFloresActual = 0f;
+
+        grupoFloresOniricas.SetActive(true);
+        AplicarVisibilidadFlores(0f);
+
+        if (ocultarFloresCuandoNoApunta)
+            grupoFloresOniricas.SetActive(false);
     }
 
     private void ActualizarFloresOniricas(float progresoNormalizado, bool intentandoActivar)
@@ -322,9 +393,19 @@ public class CuadroActivablePorApunte : MonoBehaviour
         if (grupoFloresOniricas == null || animadoresFlores == null || animadoresFlores.Length == 0)
             return;
 
+        float objetivoVisibilidad = 0f;
+
         if (completado && mantenerFloresAbiertasAlCompletar)
         {
-            ForzarFloresCompletas();
+            objetivoVisibilidad = 1f;
+
+            if (!grupoFloresOniricas.activeSelf)
+                grupoFloresOniricas.SetActive(true);
+
+            for (int i = 0; i < animadoresFlores.Length; i++)
+                AplicarProgresoFlor(animadoresFlores[i], 1f);
+
+            ActualizarVisibilidadSuaveFlores(objetivoVisibilidad);
             return;
         }
 
@@ -336,14 +417,9 @@ public class CuadroActivablePorApunte : MonoBehaviour
             progresoNormalizado = Mathf.Clamp01(progresoNormalizado);
 
             for (int i = 0; i < animadoresFlores.Length; i++)
-            {
-                if (animadoresFlores[i] == null)
-                    continue;
+                AplicarProgresoFlor(animadoresFlores[i], progresoNormalizado);
 
-                animadoresFlores[i].speed = 0f;
-                animadoresFlores[i].Play(estadoBloomFlor, 0, progresoNormalizado);
-                animadoresFlores[i].Update(0f);
-            }
+            objetivoVisibilidad = progresoNormalizado;
         }
         else
         {
@@ -355,22 +431,16 @@ public class CuadroActivablePorApunte : MonoBehaviour
                     grupoFloresOniricas.SetActive(true);
 
                 for (int i = 0; i < animadoresFlores.Length; i++)
-                {
-                    if (animadoresFlores[i] == null)
-                        continue;
+                    AplicarProgresoFlor(animadoresFlores[i], 0f);
 
-                    animadoresFlores[i].speed = 0f;
-                    animadoresFlores[i].Play(estadoBloomFlor, 0, 0f);
-                    animadoresFlores[i].Update(0f);
-                }
-
-                if (!estabaActivo && ocultarFloresCuandoNoApunta)
+                if (!estabaActivo && ocultarFloresCuandoNoApunta && !usarAparicionSuaveFlores)
                     grupoFloresOniricas.SetActive(false);
             }
 
-            if (ocultarFloresCuandoNoApunta)
-                grupoFloresOniricas.SetActive(false);
+            objetivoVisibilidad = 0f;
         }
+
+        ActualizarVisibilidadSuaveFlores(objetivoVisibilidad);
     }
 
     private void ForzarFloresCompletas()
@@ -382,13 +452,150 @@ public class CuadroActivablePorApunte : MonoBehaviour
             grupoFloresOniricas.SetActive(true);
 
         for (int i = 0; i < animadoresFlores.Length; i++)
-        {
-            if (animadoresFlores[i] == null)
-                continue;
+            AplicarProgresoFlor(animadoresFlores[i], 1f);
 
-            animadoresFlores[i].speed = 0f;
-            animadoresFlores[i].Play(estadoBloomFlor, 0, 1f);
-            animadoresFlores[i].Update(0f);
+        visibilidadFloresActual = 1f;
+        AplicarVisibilidadFlores(1f);
+    }
+
+    private void AplicarProgresoFlor(Animator animador, float progresoNormalizado)
+    {
+        if (animador == null)
+            return;
+
+        if (animador.runtimeAnimatorController == null)
+        {
+            if (mostrarLogs)
+                Debug.LogWarning("Una flor no tiene Runtime Animator Controller asignado.", animador);
+            return;
         }
+
+        if (!animador.HasState(0, hashEstadoBloomFlor))
+        {
+            if (mostrarLogs)
+            {
+                Debug.LogWarning(
+                    "El Animator '" + animador.gameObject.name + "' no tiene un estado llamado '" + estadoBloomFlor + "' en la capa 0.",
+                    animador
+                );
+            }
+            return;
+        }
+
+        progresoNormalizado = Mathf.Clamp01(progresoNormalizado);
+
+        animador.speed = 0f;
+        animador.Play(hashEstadoBloomFlor, 0, progresoNormalizado);
+        animador.Update(0f);
+    }
+
+    private void ActualizarVisibilidadSuaveFlores(float objetivoVisibilidad)
+    {
+        if (grupoFloresOniricas == null)
+            return;
+
+        objetivoVisibilidad = Mathf.Clamp01(objetivoVisibilidad);
+
+        if (!usarAparicionSuaveFlores)
+        {
+            visibilidadFloresActual = objetivoVisibilidad;
+            AplicarVisibilidadFlores(visibilidadFloresActual);
+
+            if (objetivoVisibilidad > 0.001f && !grupoFloresOniricas.activeSelf)
+                grupoFloresOniricas.SetActive(true);
+            else if (objetivoVisibilidad <= 0.001f && ocultarFloresCuandoNoApunta)
+                grupoFloresOniricas.SetActive(false);
+
+            return;
+        }
+
+        if (objetivoVisibilidad > 0.001f && !grupoFloresOniricas.activeSelf)
+            grupoFloresOniricas.SetActive(true);
+
+        float velocidad = duracionDifuminadoFlores <= 0.0001f
+            ? 999f
+            : 1f / duracionDifuminadoFlores;
+
+        visibilidadFloresActual = Mathf.MoveTowards(
+            visibilidadFloresActual,
+            objetivoVisibilidad,
+            velocidad * Time.deltaTime
+        );
+
+        AplicarVisibilidadFlores(visibilidadFloresActual);
+
+        if (visibilidadFloresActual <= 0.001f &&
+            objetivoVisibilidad <= 0.001f &&
+            ocultarFloresCuandoNoApunta)
+        {
+            grupoFloresOniricas.SetActive(false);
+        }
+    }
+
+    private void AplicarVisibilidadFlores(float t)
+    {
+        if (grupoFloresOniricas == null)
+            return;
+
+        float valorSuave = Mathf.SmoothStep(0f, 1f, Mathf.Clamp01(t));
+
+        if (floresTransform != null && escalasOriginalesFlores != null)
+        {
+            for (int i = 0; i < floresTransform.Length; i++)
+            {
+                if (floresTransform[i] == null)
+                    continue;
+
+                float factorEscala = Mathf.Lerp(escalaInicialFlores, 1f, valorSuave);
+                floresTransform[i].localScale = escalasOriginalesFlores[i] * factorEscala;
+            }
+        }
+
+        if (intentarControlarAlphaMateriales && renderersFlores != null)
+        {
+            for (int i = 0; i < renderersFlores.Length; i++)
+            {
+                Renderer rend = renderersFlores[i];
+
+                if (rend == null || rend.sharedMaterial == null)
+                    continue;
+
+                if (!TryGetColorProperty(rend.sharedMaterial, out int colorPropertyId, out Color colorBase))
+                    continue;
+
+                float alpha = Mathf.Lerp(alphaInicialFlores, 1f, valorSuave);
+                colorBase.a = alpha;
+
+                propertyBlockFlores.Clear();
+                rend.GetPropertyBlock(propertyBlockFlores);
+                propertyBlockFlores.SetColor(colorPropertyId, colorBase);
+                rend.SetPropertyBlock(propertyBlockFlores);
+            }
+        }
+    }
+
+    private bool TryGetColorProperty(Material material, out int propertyId, out Color colorBase)
+    {
+        propertyId = -1;
+        colorBase = Color.white;
+
+        if (material == null)
+            return false;
+
+        if (material.HasProperty(BaseColorID))
+        {
+            propertyId = BaseColorID;
+            colorBase = material.GetColor(BaseColorID);
+            return true;
+        }
+
+        if (material.HasProperty(ColorID))
+        {
+            propertyId = ColorID;
+            colorBase = material.GetColor(ColorID);
+            return true;
+        }
+
+        return false;
     }
 }
