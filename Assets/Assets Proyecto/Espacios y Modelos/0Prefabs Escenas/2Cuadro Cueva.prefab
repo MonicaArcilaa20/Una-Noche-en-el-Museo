@@ -112,7 +112,7 @@ MonoBehaviour:
   velocidadPulso: 2
   amplitudPulso: 0.25
   pulsarEscala: 1
-  amplitudEscala: 0.05
+  amplitudEscala: -0.08
   iniciarOculto: 1
   ocultarCuandoTermina: 1
   desactivarRenderersAlOcultar: 1
@@ -307,7 +307,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3341216774167969375, guid: 227c1f35d6c7c254181191deac6df7b0, type: 3}
       propertyPath: nombreEscenaSiguiente
-      value: 3Cueva_Monica 2
+      value: 3Cueva_Monica
       objectReference: {fileID: 0}
     - target: {fileID: 4643359848757820978, guid: 227c1f35d6c7c254181191deac6df7b0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -321,6 +321,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -0.088
       objectReference: {fileID: 0}
+    - target: {fileID: 6640266153824041455, guid: 227c1f35d6c7c254181191deac6df7b0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7602319919509299376, guid: 227c1f35d6c7c254181191deac6df7b0, type: 3}
       propertyPath: m_Name
       value: 2Cuadro Cueva
@@ -330,7 +334,8 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: 07375146051b1824f9cba90308ecd791, type: 2}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 8232463414258352540, guid: 227c1f35d6c7c254181191deac6df7b0, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 2605033121321575746, guid: 227c1f35d6c7c254181191deac6df7b0, type: 3}
       insertIndex: 4

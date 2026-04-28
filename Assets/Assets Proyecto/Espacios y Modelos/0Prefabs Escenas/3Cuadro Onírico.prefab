@@ -15226,15 +15226,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2605033121321575746, guid: 227c1f35d6c7c254181191deac6df7b0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.3650436
+      value: 1.4
       objectReference: {fileID: 0}
     - target: {fileID: 2605033121321575746, guid: 227c1f35d6c7c254181191deac6df7b0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.89900005
+      value: -0.84
       objectReference: {fileID: 0}
     - target: {fileID: 2605033121321575746, guid: 227c1f35d6c7c254181191deac6df7b0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 8.564669
+      value: 8.03
       objectReference: {fileID: 0}
     - target: {fileID: 2605033121321575746, guid: 227c1f35d6c7c254181191deac6df7b0, type: 3}
       propertyPath: m_LocalRotation.w
@@ -15350,7 +15350,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3341216774167969375, guid: 227c1f35d6c7c254181191deac6df7b0, type: 3}
       propertyPath: nombreEscenaSiguiente
-      value: 
+      value: "4On\xEDrico_Monica"
       objectReference: {fileID: 0}
     - target: {fileID: 3341216774167969375, guid: 227c1f35d6c7c254181191deac6df7b0, type: 3}
       propertyPath: duracionDifuminadoFlores
