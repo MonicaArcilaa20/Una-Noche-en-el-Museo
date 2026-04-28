@@ -421,6 +421,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pincel (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1648627134683312683, guid: b126ec1280b4f1f488dd88b45fb08163, type: 3}
+      propertyPath: anclaManoDerecha
+      value: 
+      objectReference: {fileID: 1133114673}
+    - target: {fileID: 1648627134683312683, guid: b126ec1280b4f1f488dd88b45fb08163, type: 3}
+      propertyPath: animadorManoDerecha
+      value: 
+      objectReference: {fileID: 5686134208879746594}
+    - target: {fileID: 1648627134683312683, guid: b126ec1280b4f1f488dd88b45fb08163, type: 3}
+      propertyPath: controladorGripManoDerecha
+      value: 
+      objectReference: {fileID: 1509803114}
     - target: {fileID: 5721646931393670377, guid: b126ec1280b4f1f488dd88b45fb08163, type: 3}
       propertyPath: m_IsActive
       value: 1
