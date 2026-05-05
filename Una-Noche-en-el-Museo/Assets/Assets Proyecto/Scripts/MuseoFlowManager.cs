@@ -1,9 +1,13 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MuseoFlowManager : MonoBehaviour
 {
+    [Header("Botones físicos (ocultar al presionar)")]
+    [SerializeField] private GameObject[] botonesInicio;
+
     [Header("UI")]
     [SerializeField] private GameObject canvasControlesMovimiento;
     [SerializeField] private GameObject canvasControlesPincel;
@@ -32,18 +36,18 @@ public class MuseoFlowManager : MonoBehaviour
     [SerializeField] private AudioClip vozEntrarAlCuadro;
 
     [Header("Textos")]
-    [TextArea] [SerializeField] private string textoIntro1 = "Bienvenido al lado del museo que nunca has visto. Un museo fuera de lo común.";
-    [TextArea] [SerializeField] private string textoIntro2 = "Este museo no es lo que parece. Cada pintura es una puerta. Cada puerta, un mundo. Y tú tienes el poder de abrirlos.";
-    [TextArea] [SerializeField] private string textoIntro3 = "Explora el lugar y encuentra el Pincel Mágico que te permitirá abrir nuevos mundos y te acompañará durante todo el viaje.";
+    [TextArea][SerializeField] private string textoIntro1 = "Bienvenido al museo.";
+    [TextArea][SerializeField] private string textoIntro2 = "Este museo no es lo que parece.";
+    [TextArea][SerializeField] private string textoIntro3 = "Encuentra el pincel mágico.";
 
-    [TextArea] [SerializeField] private string textoPincelEncontrado = "¡Has encontrado el Pincel Mágico!";
-    [TextArea] [SerializeField] private string textoPincelPoder = "Ahora posees el poder de visitar los mundos posibles de las obras de este lugar.";
-    [TextArea] [SerializeField] private string textoBuscarTinta = "Pero ten cuidado, necesitarás de tinta para activar los portales en cada mundo, busca tu primera carga de tinta y embárcate en esta artística aventura.";
+    [TextArea][SerializeField] private string textoPincelEncontrado = "¡Has encontrado el pincel!";
+    [TextArea][SerializeField] private string textoPincelPoder = "Puedes abrir mundos.";
+    [TextArea][SerializeField] private string textoBuscarTinta = "Busca tinta.";
 
-    [TextArea] [SerializeField] private string textoTintaTomada = "Has conseguido la tinta, úsala con cuidado ya que no es infinita, es tu deber cuidar y buscar de ella.";
-    [TextArea] [SerializeField] private string textoPintarPrimerCuadro = "Ahora tienes todo lo que se necesita para pintar tu primer cuadro. El pincel no dibuja lo que ves, dibuja lo que es posible. Pinta el marco y observa cómo sucede la magia.";
+    [TextArea][SerializeField] private string textoTintaTomada = "Tienes tinta.";
+    [TextArea][SerializeField] private string textoPintarPrimerCuadro = "Pinta el cuadro.";
 
-    [TextArea] [SerializeField] private string textoEntrarAlCuadro = "No tengas miedo. Posibles mundos esperan por ti para ser vistos y transformados.";
+    [TextArea][SerializeField] private string textoEntrarAlCuadro = "Entra al mundo.";
 
     [Header("Tiempos")]
     [SerializeField] private float duracionCanvasMovimiento = 8f;
@@ -61,8 +65,51 @@ public class MuseoFlowManager : MonoBehaviour
 
     private void Start()
     {
+        ApagarTodo();
+    }
+
+    private void ApagarTodo()
+    {
+        if (canvasControlesMovimiento != null)
+            canvasControlesMovimiento.SetActive(false);
+
+        if (canvasControlesPincel != null)
+            canvasControlesPincel.SetActive(false);
+
+        OcultarSubtitulos();
+
+        if (senaleticaPasilloIzquierdo != null)
+            senaleticaPasilloIzquierdo.SetActive(false);
+
+        if (senaleticaPasilloDerecho != null)
+            senaleticaPasilloDerecho.SetActive(false);
+
+        if (senaleticaPrimerCuadro != null)
+            senaleticaPrimerCuadro.SetActive(false);
+    }
+
+    public void OnClickEmpezar()
+    {
+        OcultarBotonesInicio();
+
         PrepararEstadoInicial();
         secuenciaActual = StartCoroutine(SecuenciaInicio());
+    }
+
+    public void OnClickTutorial()
+    {
+        OcultarBotonesInicio();
+
+        SceneManager.LoadScene("0Tutorial_Inicio");
+    }
+
+    private void OcultarBotonesInicio()
+    {
+        foreach (GameObject boton in botonesInicio)
+        {
+            if (boton != null)
+                boton.SetActive(false);
+        }
     }
 
     private void PrepararEstadoInicial()
@@ -92,8 +139,7 @@ public class MuseoFlowManager : MonoBehaviour
 
     public void OnPincelTomado()
     {
-        if (pincelTomado)
-            return;
+        if (pincelTomado) return;
 
         pincelTomado = true;
 
@@ -117,8 +163,7 @@ public class MuseoFlowManager : MonoBehaviour
 
     public void OnPrimeraTintaTomada()
     {
-        if (tintaTomada)
-            return;
+        if (tintaTomada) return;
 
         tintaTomada = true;
 
@@ -135,8 +180,7 @@ public class MuseoFlowManager : MonoBehaviour
 
     public void OnLlegarPrimerCuadro()
     {
-        if (avisoCuadroLanzado)
-            return;
+        if (avisoCuadroLanzado) return;
 
         avisoCuadroLanzado = true;
 
@@ -206,8 +250,7 @@ public class MuseoFlowManager : MonoBehaviour
 
     private IEnumerator MostrarCanvasTemporal(GameObject canvas, float duracion)
     {
-        if (canvas == null)
-            yield break;
+        if (canvas == null) yield break;
 
         canvas.SetActive(true);
         yield return new WaitForSeconds(duracion);
