@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: "Assets/Assets Proyecto/Scenes/00Men\xFA.unity"
     guid: 89ad683e7a97a8b40a7a17becb19e64b
   - enabled: 1
