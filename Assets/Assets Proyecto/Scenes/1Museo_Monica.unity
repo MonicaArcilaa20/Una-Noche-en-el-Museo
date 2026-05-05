@@ -4645,27 +4645,30 @@ MonoBehaviour:
   vozEntrarAlCuadro: {fileID: 8300000, guid: 16fba6d30ed741d4a9fdd6e79ee2f3ac, type: 3}
   textoIntro1: "Bienvenido al lado del museo que nunca has visto. Un museo fuera
     de lo com\xFAn."
-  textoIntro2: "Este museo no es lo que parece. Cada pintura es una puerta. Cada
-    puerta, un mundo. Y t\xFA tienes el poder de abrirlos."
+  textoIntro2: "Este museo no es lo que parece. Las pinturas pueden parecer s\xF3lo
+    representaciones visuales de imaginarios individuales, pero si observamos con
+    suficiente detenimiento, notaremos que a veces, en algunos rincones, estas pinturas
+    parecen cobrar vida\u2026"
   textoIntro3: "Explora el lugar y encuentra el Pincel M\xE1gico que te permitir\xE1
     abrir nuevos mundos y te acompa\xF1ar\xE1 durante todo el viaje."
   textoPincelEncontrado: "\xA1Has encontrado el Pincel M\xE1gico!"
-  textoPincelPoder: Ahora posees el poder de visitar los mundos posibles de las obras
-    de este lugar.
+  textoPincelPoder: "Ahora posees el poder de visitar los mundos posibles de las
+    obras de este m\xE1gico lugar."
   textoBuscarTinta: "Pero ten cuidado, necesitar\xE1s de tinta para activar los portales
     en cada mundo, busca tu primera carga de tinta y emb\xE1rcate en esta art\xEDstica
     aventura."
-  textoTintaTomada: "Has conseguido la tinta, \xFAsala con cuidado ya que no es infinita,
-    es tu deber cuidar y buscar de ella."
+  textoTintaTomada: "\xA1Ahora tienes todo lo que se necesita para pintar tu primer
+    cuadro! Activa el cuadro y observa c\xF3mo sucede la magia."
   textoPintarPrimerCuadro: "Ahora tienes todo lo que se necesita para pintar tu primer
     cuadro. El pincel no dibuja lo que ves, dibuja lo que es posible. Pinta el marco
     y observa c\xF3mo sucede la magia."
-  textoEntrarAlCuadro: No tengas miedo. Posibles mundos esperan por ti para ser vistos
-    y transformados.
+  textoEntrarAlCuadro: "Observa la magia, mira c\xF3mo el cuadro cobra vida y te
+    extiende una invitaci\xF3n a entrar. No tengas miedo. Posibles mundos esperan
+    por ti para ser vistos y transformados."
   duracionCanvasMovimiento: 8
   duracionCanvasPincel: 8
-  pausaEntreLineas: 2
-  duracionFallbackLinea: 4
+  pausaEntreLineas: 1
+  duracionFallbackLinea: 4.5
 --- !u!1 &485039025
 GameObject:
   m_ObjectHideFlags: 0
