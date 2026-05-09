@@ -15,6 +15,9 @@ public class RecargaTintaPickup : MonoBehaviour
     [SerializeField] private bool rotar = true;
     [SerializeField] private float velocidadRotacionY = 35f;
 
+    [Header("Señalética")]
+    [SerializeField] private GameObject senaletica;
+
     [Header("Audio")]
     [SerializeField] private AudioClip sonidoRecarga;
     [Range(0f, 1f)]
@@ -35,10 +38,19 @@ public class RecargaTintaPickup : MonoBehaviour
         col = GetComponent<Collider>();
         col.isTrigger = true;
         posicionInicial = transform.position;
+
+        ActualizarSenaletica();
+    }
+
+    private void OnEnable()
+    {
+        ActualizarSenaletica();
     }
 
     private void Update()
     {
+        ActualizarSenaletica();
+
         if (usado)
             return;
 
@@ -73,6 +85,8 @@ public class RecargaTintaPickup : MonoBehaviour
         tinta.Recargar(cantidadRecarga);
         usado = true;
 
+        ActualizarSenaletica();
+
         if (sonidoRecarga != null)
             AudioSource.PlayClipAtPoint(sonidoRecarga, transform.position, volumenSonido);
 
@@ -82,12 +96,16 @@ public class RecargaTintaPickup : MonoBehaviour
         col.enabled = false;
 
         if (destruirAlRecargar)
-        {
             Destroy(gameObject);
-        }
         else
-        {
             gameObject.SetActive(false);
-        }
+    }
+
+    private void ActualizarSenaletica()
+    {
+        if (senaletica == null)
+            return;
+
+        senaletica.SetActive(!usado);
     }
 }
