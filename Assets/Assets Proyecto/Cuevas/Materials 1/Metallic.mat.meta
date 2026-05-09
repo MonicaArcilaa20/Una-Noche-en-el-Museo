@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: a1b8fa268228fdf4fbb9ad0b2e32b5f0
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 274237
+  packageName: Skybox AI Generator by Blockade Labs (Subscription)
+  packageVersion: 2.0.3
+  assetPath: Assets/BlockadeLabs-SDK-Unity/Materials/Metallic.mat
+  uploadId: 838326

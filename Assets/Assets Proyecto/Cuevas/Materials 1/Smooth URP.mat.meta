@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: c5fbc9c2ce627834f81af2401b96d5cd
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 274237
+  packageName: Skybox AI Generator by Blockade Labs (Subscription)
+  packageVersion: 2.0.3
+  assetPath: Assets/BlockadeLabs-SDK-Unity/Materials/Smooth URP.mat
+  uploadId: 838326
