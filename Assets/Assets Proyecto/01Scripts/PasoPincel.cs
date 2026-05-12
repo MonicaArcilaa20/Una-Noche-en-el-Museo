@@ -8,9 +8,10 @@ public class PasoPincel : MonoBehaviour
 
     public void OnGrab()
     {
-        if (hecho) return;
+        if (hecho)
+            return;
 
         hecho = true;
-        manager.PasoCompletado(3);
+        manager.PasoCompletado(2);
     }
 }

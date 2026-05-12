@@ -2,16 +2,21 @@ using UnityEngine;
 
 public class PasoTinta : MonoBehaviour
 {
-    public TutorialFlowManager manager;
+    [SerializeField] private TutorialFlowManager manager;
 
     private bool hecho = false;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!hecho && other.CompareTag("Pincel"))
-        {
-            hecho = true;
-            manager.PasoCompletado(4);
-        }
+        if (hecho)
+            return;
+
+        // Más robusto que CompareTag solo del collider
+        ControlPincel pincel = other.GetComponentInParent<ControlPincel>();
+        if (pincel == null)
+            return;
+
+        hecho = true;
+        manager.PasoCompletado(3);
     }
 }

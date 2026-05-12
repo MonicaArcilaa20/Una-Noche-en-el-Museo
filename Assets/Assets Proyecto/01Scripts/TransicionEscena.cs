@@ -10,14 +10,19 @@ public class TransicionEscena : MonoBehaviour
 
     private bool transicionando = false;
 
-    private void Start()
+    private void Awake()
     {
         if (imagenFade != null)
         {
             Color c = imagenFade.color;
-            c.a = 0f;
+            c.a = 1f;
             imagenFade.color = c;
         }
+    }
+
+    private IEnumerator Start()
+    {
+        yield return FadeA(0f);
     }
 
     public void IniciarTransicion(string nombreEscena)
@@ -32,23 +37,32 @@ public class TransicionEscena : MonoBehaviour
     {
         transicionando = true;
 
+        yield return FadeA(1f);
+
+        SceneManager.LoadScene(nombreEscena);
+    }
+
+    private IEnumerator FadeA(float alphaObjetivo)
+    {
+        if (imagenFade == null)
+            yield break;
+
+        Color c = imagenFade.color;
+        float alphaInicial = c.a;
         float t = 0f;
 
         while (t < duracionFade)
         {
             t += Time.deltaTime;
-            float alpha = Mathf.Clamp01(t / duracionFade);
+            float alpha = Mathf.Lerp(alphaInicial, alphaObjetivo, t / duracionFade);
 
-            if (imagenFade != null)
-            {
-                Color c = imagenFade.color;
-                c.a = alpha;
-                imagenFade.color = c;
-            }
+            c.a = alpha;
+            imagenFade.color = c;
 
             yield return null;
         }
 
-        SceneManager.LoadScene(nombreEscena);
+        c.a = alphaObjetivo;
+        imagenFade.color = c;
     }
 }

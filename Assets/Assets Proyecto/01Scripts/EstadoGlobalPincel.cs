@@ -10,6 +10,10 @@ public class EstadoGlobalPincel : MonoBehaviour
     [SerializeField] private float tintaActual = 100f;
     [SerializeField] private float tintaMaxima = 100f;
 
+    [Header("Valores por defecto")]
+    [SerializeField] private float tintaActualPorDefecto = 100f;
+    [SerializeField] private float tintaMaximaPorDefecto = 100f;
+
     public bool PincelAdquirido => pincelAdquirido;
     public bool PincelActivo => pincelActivo;
     public float TintaActual => tintaActual;
@@ -38,5 +42,15 @@ public class EstadoGlobalPincel : MonoBehaviour
     public void MarcarPincelAdquirido()
     {
         pincelAdquirido = true;
+    }
+
+    public void ResetearEstadoTutorial()
+    {
+        pincelAdquirido = false;
+        pincelActivo = false;
+        tintaMaxima = Mathf.Max(1f, tintaMaximaPorDefecto);
+        tintaActual = Mathf.Clamp(tintaActualPorDefecto, 0f, tintaMaxima);
+
+        Debug.Log("[EstadoGlobalPincel] Estado reseteado al salir del tutorial.");
     }
 }
