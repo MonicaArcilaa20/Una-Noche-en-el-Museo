@@ -1865,6 +1865,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: XR Device Simulator
       objectReference: {fileID: 0}
+    - target: {fileID: 6598815579406187037, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4031,7 +4035,7 @@ MonoBehaviour:
   mensajeFinal: "\xA1Has terminado el tutorial! Ahora disfrutar\xE1s de la experiencia."
   transicionEscena: {fileID: 1590474775}
   audioSource: {fileID: 946288332}
-  sonidoPasoCorrecto: {fileID: 8300000, guid: 16fba6d30ed741d4a9fdd6e79ee2f3ac, type: 3}
+  sonidoPasoCorrecto: {fileID: 8300000, guid: c2fdfa18f4c1059489134f67f6f5a950, type: 3}
   mostrarLogs: 1
 --- !u!1 &1918861765
 GameObject:
@@ -5569,7 +5573,7 @@ MonoBehaviour:
   rotar: 1
   velocidadRotacionY: 35
   senaletica: {fileID: 1680399312332333601}
-  sonidoRecarga: {fileID: 8300000, guid: 16fba6d30ed741d4a9fdd6e79ee2f3ac, type: 3}
+  sonidoRecarga: {fileID: 8300000, guid: be822fa0928e0684bada170a1228d501, type: 3}
   volumenSonido: 1
 --- !u!1 &241161501073674236
 GameObject:

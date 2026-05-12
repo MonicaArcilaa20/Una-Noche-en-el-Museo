@@ -10,9 +10,13 @@ public class MuseoFlowManager : MonoBehaviour
     [SerializeField] private GameObject panelSubtitulos;
     [SerializeField] private TMP_Text textoSubtitulos;
 
-    [Header("Señaléticas")]
+    [Header("Guías visuales")]
     [SerializeField] private GameObject senaleticaPasilloIzquierdo;
+    [SerializeField] private GameObject objetoPincel;
+
     [SerializeField] private GameObject senaleticaPasilloDerecho;
+    [SerializeField] private GameObject objetoTinta;
+
     [SerializeField] private GameObject senaleticaPrimerCuadro;
 
     [Header("Audio Voz Museo")]
@@ -29,21 +33,20 @@ public class MuseoFlowManager : MonoBehaviour
     [SerializeField] private AudioClip vozTintaTomada;
     [SerializeField] private AudioClip vozPintarPrimerCuadro;
 
-    [SerializeField] private AudioClip vozEntrarAlCuadro;
+    [SerializeField] private AudioClip vozCuadroActivado;
 
     [Header("Textos")]
     [TextArea] [SerializeField] private string textoIntro1 = "Bienvenido al lado del museo que nunca has visto. Un museo fuera de lo común.";
-    [TextArea] [SerializeField] private string textoIntro2 = "Este museo no es lo que parece. Cada pintura es una puerta. Cada puerta, un mundo. Y tú tienes el poder de abrirlos.";
+    [TextArea] [SerializeField] private string textoIntro2 = "Este museo no es lo que parece. Las pinturas pueden parecer sólo representaciones visuales de imaginarios individuales, pero si observamos con suficiente detenimiento, notaremos que a veces, en algunos rincones, estas pinturas parecen cobrar vida…";
     [TextArea] [SerializeField] private string textoIntro3 = "Explora el lugar y encuentra el Pincel Mágico que te permitirá abrir nuevos mundos y te acompañará durante todo el viaje.";
 
     [TextArea] [SerializeField] private string textoPincelEncontrado = "¡Has encontrado el Pincel Mágico!";
-    [TextArea] [SerializeField] private string textoPincelPoder = "Ahora posees el poder de visitar los mundos posibles de las obras de este lugar.";
-    [TextArea] [SerializeField] private string textoBuscarTinta = "Pero ten cuidado, necesitarás de tinta para activar los portales en cada mundo, busca tu primera carga de tinta y embárcate en esta artística aventura.";
+    [TextArea] [SerializeField] private string textoPincelPoder = "Ahora posees el poder de visitar los mundos posibles de las obras de este mágico lugar!";
+    [TextArea] [SerializeField] private string textoBuscarTinta = "Pero ten cuidado, necesitarás de tinta para activar los portales en cada mundo, busca tu primera carga de tinta y embárcate en esta artística aventura!";
 
     [TextArea] [SerializeField] private string textoTintaTomada = "Has conseguido la tinta, úsala con cuidado ya que no es infinita, es tu deber cuidar y buscar de ella.";
-    [TextArea] [SerializeField] private string textoPintarPrimerCuadro = "Ahora tienes todo lo que se necesita para pintar tu primer cuadro. El pincel no dibuja lo que ves, dibuja lo que es posible. Pinta el marco y observa cómo sucede la magia.";
-
-    [TextArea] [SerializeField] private string textoEntrarAlCuadro = "No tengas miedo. Posibles mundos esperan por ti para ser vistos y transformados.";
+    [TextArea] [SerializeField] private string textoPintarPrimerCuadro = "¡Ahora tienes todo lo que se necesita para pintar tu primer cuadro! Activa el cuadro y observa cómo sucede la magia.";
+    [TextArea] [SerializeField] private string textoCuadroActivado = "Observa la magia, mira como el cuadro cobra vida y te extiende una invitación a entrar.";
 
     [Header("Tiempos")]
     [SerializeField] private float duracionCanvasMovimiento = 8f;
@@ -51,9 +54,12 @@ public class MuseoFlowManager : MonoBehaviour
     [SerializeField] private float pausaEntreLineas = 0.4f;
     [SerializeField] private float duracionFallbackLinea = 4f;
 
+    [Header("Debug")]
+    [SerializeField] private bool mostrarLogs = true;
+
     private bool pincelTomado = false;
     private bool tintaTomada = false;
-    private bool avisoCuadroLanzado = false;
+    private bool cuadroActivadoAvisado = false;
 
     private Coroutine secuenciaActual;
     private Coroutine rutinaCanvasMovimiento;
@@ -75,11 +81,18 @@ public class MuseoFlowManager : MonoBehaviour
 
         OcultarSubtitulos();
 
+        // Al inicio NO mostrar objetivos todavía
         if (senaleticaPasilloIzquierdo != null)
-            senaleticaPasilloIzquierdo.SetActive(true);
+            senaleticaPasilloIzquierdo.SetActive(false);
+
+        if (objetoPincel != null)
+            objetoPincel.SetActive(false);
 
         if (senaleticaPasilloDerecho != null)
             senaleticaPasilloDerecho.SetActive(false);
+
+        if (objetoTinta != null)
+            objetoTinta.SetActive(false);
 
         if (senaleticaPrimerCuadro != null)
             senaleticaPrimerCuadro.SetActive(false);
@@ -97,6 +110,9 @@ public class MuseoFlowManager : MonoBehaviour
 
         pincelTomado = true;
 
+        if (mostrarLogs)
+            Debug.Log("MuseoFlowManager: Pincel tomado.");
+
         PrepararNuevaSecuencia();
 
         if (canvasControlesMovimiento != null)
@@ -105,8 +121,9 @@ public class MuseoFlowManager : MonoBehaviour
         if (senaleticaPasilloIzquierdo != null)
             senaleticaPasilloIzquierdo.SetActive(false);
 
-        if (senaleticaPasilloDerecho != null)
-            senaleticaPasilloDerecho.SetActive(true);
+        // Normalmente el pincel ya no debe seguir como objetivo visual
+        if (objetoPincel != null)
+            objetoPincel.SetActive(false);
 
         if (rutinaCanvasPincel != null)
             StopCoroutine(rutinaCanvasPincel);
@@ -122,36 +139,51 @@ public class MuseoFlowManager : MonoBehaviour
 
         tintaTomada = true;
 
+        if (mostrarLogs)
+            Debug.Log("MuseoFlowManager: Primera tinta tomada.");
+
         PrepararNuevaSecuencia();
 
         if (senaleticaPasilloDerecho != null)
             senaleticaPasilloDerecho.SetActive(false);
 
-        if (senaleticaPrimerCuadro != null)
-            senaleticaPrimerCuadro.SetActive(true);
+        if (objetoTinta != null)
+            objetoTinta.SetActive(false);
 
         secuenciaActual = StartCoroutine(SecuenciaTintaTomada());
     }
 
-    public void OnLlegarPrimerCuadro()
+    public void OnPrimerCuadroActivado()
     {
-        if (avisoCuadroLanzado)
+        if (cuadroActivadoAvisado)
             return;
 
-        avisoCuadroLanzado = true;
+        cuadroActivadoAvisado = true;
+
+        if (mostrarLogs)
+            Debug.Log("MuseoFlowManager: Primer cuadro activado.");
 
         PrepararNuevaSecuencia();
 
         if (senaleticaPrimerCuadro != null)
             senaleticaPrimerCuadro.SetActive(false);
 
-        secuenciaActual = StartCoroutine(SecuenciaLlegadaCuadro());
+        secuenciaActual = StartCoroutine(SecuenciaCuadroActivado());
+    }
+
+    // Compatibilidad con conexiones viejas
+    public void OnLlegarPrimerCuadro()
+    {
+        OnPrimerCuadroActivado();
     }
 
     private void PrepararNuevaSecuencia()
     {
         if (secuenciaActual != null)
+        {
             StopCoroutine(secuenciaActual);
+            secuenciaActual = null;
+        }
 
         if (audioSourceVoz != null && audioSourceVoz.isPlaying)
             audioSourceVoz.Stop();
@@ -164,7 +196,15 @@ public class MuseoFlowManager : MonoBehaviour
         yield return ReproducirLinea(vozIntro1, textoIntro1);
         yield return ReproducirLinea(vozIntro2, textoIntro2);
         yield return ReproducirLinea(vozIntro3, textoIntro3);
+
         OcultarSubtitulos();
+
+        // Solo al terminar la intro aparecen la flecha izquierda y el pincel
+        if (senaleticaPasilloIzquierdo != null)
+            senaleticaPasilloIzquierdo.SetActive(true);
+
+        if (objetoPincel != null)
+            objetoPincel.SetActive(true);
     }
 
     private IEnumerator SecuenciaPincelTomado()
@@ -172,19 +212,32 @@ public class MuseoFlowManager : MonoBehaviour
         yield return ReproducirLinea(vozPincelEncontrado, textoPincelEncontrado);
         yield return ReproducirLinea(vozPincelPoder, textoPincelPoder);
         yield return ReproducirLinea(vozBuscarTinta, textoBuscarTinta);
+
         OcultarSubtitulos();
+
+        // Solo al terminar este bloque aparecen la flecha derecha y la tinta
+        if (senaleticaPasilloDerecho != null)
+            senaleticaPasilloDerecho.SetActive(true);
+
+        if (objetoTinta != null)
+            objetoTinta.SetActive(true);
     }
 
     private IEnumerator SecuenciaTintaTomada()
     {
         yield return ReproducirLinea(vozTintaTomada, textoTintaTomada);
         yield return ReproducirLinea(vozPintarPrimerCuadro, textoPintarPrimerCuadro);
+
         OcultarSubtitulos();
+
+        // Solo al terminar este bloque aparece la guía del primer cuadro
+        if (senaleticaPrimerCuadro != null)
+            senaleticaPrimerCuadro.SetActive(true);
     }
 
-    private IEnumerator SecuenciaLlegadaCuadro()
+    private IEnumerator SecuenciaCuadroActivado()
     {
-        yield return ReproducirLinea(vozEntrarAlCuadro, textoEntrarAlCuadro);
+        yield return ReproducirLinea(vozCuadroActivado, textoCuadroActivado);
         OcultarSubtitulos();
     }
 

@@ -259,7 +259,7 @@ MonoBehaviour:
   rotar: 1
   velocidadRotacionY: 35
   senaletica: {fileID: 1680399310511553540}
-  sonidoRecarga: {fileID: 8300000, guid: 16fba6d30ed741d4a9fdd6e79ee2f3ac, type: 3}
+  sonidoRecarga: {fileID: 8300000, guid: be822fa0928e0684bada170a1228d501, type: 3}
   volumenSonido: 1
 --- !u!1 &2918208891499037042
 GameObject:
