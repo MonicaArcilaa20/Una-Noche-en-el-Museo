@@ -1733,6 +1733,52 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
+--- !u!1 &817585315
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 817585317}
+  - component: {fileID: 817585316}
+  m_Layer: 0
+  m_Name: SpawnXR
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &817585316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 817585315}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b8fbefb61191714096f7ca1064a9400, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpawnXRAlCargar
+  alinearRotacionYaw: 1
+  mostrarLogs: 1
+--- !u!4 &817585317
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 817585315}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0.69179404, z: -0, w: 0.72209495}
+  m_LocalPosition: {x: -21.74, y: -0.6, z: 4.39}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -87.545, z: 0}
 --- !u!1 &819209292
 GameObject:
   m_ObjectHideFlags: 0
@@ -3667,6 +3713,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TransicionEscena
   imagenFade: {fileID: 2033559299}
   duracionFade: 1.5
+  usarTiempoNoEscalado: 1
+  audioSourceTransicion: {fileID: 946288332}
+  sonidoCambioMundo: {fileID: 8300000, guid: 380def0126e882b4dbf700aced972243, type: 3}
+  volumenSonido: 1
+  reproducirEnFadeIn: 1
+  reproducirEnFadeOut: 1
 --- !u!1001 &1686962910
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13273,6 +13325,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 1905768615}
   - {fileID: 676208034}
+  - {fileID: 817585317}
   - {fileID: 149027784}
   - {fileID: 608484500}
   - {fileID: 1590474774}

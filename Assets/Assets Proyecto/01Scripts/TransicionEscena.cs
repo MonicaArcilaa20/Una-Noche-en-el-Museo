@@ -5,8 +5,18 @@ using UnityEngine.UI;
 
 public class TransicionEscena : MonoBehaviour
 {
+    [Header("Fade")]
     [SerializeField] private Image imagenFade;
     [SerializeField] private float duracionFade = 1.5f;
+    [SerializeField] private bool usarTiempoNoEscalado = true;
+
+    [Header("Audio transición")]
+    [SerializeField] private AudioSource audioSourceTransicion;
+    [SerializeField] private AudioClip sonidoCambioMundo;
+    [Range(0f, 1f)]
+    [SerializeField] private float volumenSonido = 1f;
+    [SerializeField] private bool reproducirEnFadeIn = true;
+    [SerializeField] private bool reproducirEnFadeOut = true;
 
     private bool transicionando = false;
 
@@ -14,6 +24,9 @@ public class TransicionEscena : MonoBehaviour
     {
         if (imagenFade != null)
         {
+            if (!imagenFade.gameObject.activeSelf)
+                imagenFade.gameObject.SetActive(true);
+
             Color c = imagenFade.color;
             c.a = 1f;
             imagenFade.color = c;
@@ -22,6 +35,11 @@ public class TransicionEscena : MonoBehaviour
 
     private IEnumerator Start()
     {
+        yield return null;
+
+        if (reproducirEnFadeIn)
+            ReproducirSonidoTransicion();
+
         yield return FadeA(0f);
     }
 
@@ -36,6 +54,9 @@ public class TransicionEscena : MonoBehaviour
     private IEnumerator RutinaTransicion(string nombreEscena)
     {
         transicionando = true;
+
+        if (reproducirEnFadeOut)
+            ReproducirSonidoTransicion();
 
         yield return FadeA(1f);
 
@@ -53,7 +74,7 @@ public class TransicionEscena : MonoBehaviour
 
         while (t < duracionFade)
         {
-            t += Time.deltaTime;
+            t += usarTiempoNoEscalado ? Time.unscaledDeltaTime : Time.deltaTime;
             float alpha = Mathf.Lerp(alphaInicial, alphaObjetivo, t / duracionFade);
 
             c.a = alpha;
@@ -64,5 +85,11 @@ public class TransicionEscena : MonoBehaviour
 
         c.a = alphaObjetivo;
         imagenFade.color = c;
+    }
+
+    private void ReproducirSonidoTransicion()
+    {
+        if (audioSourceTransicion != null && sonidoCambioMundo != null)
+            audioSourceTransicion.PlayOneShot(sonidoCambioMundo, volumenSonido);
     }
 }
