@@ -1,14 +1,25 @@
 using UnityEngine;
 using UnityEngine.AI;
+using System.Collections;
 
 public class EntidadAcechadora : MonoBehaviour
 {
     private Transform camaraObjetivo;
     private NavMeshAgent agent;
+    private Renderer renderizadorHijo;
+    private Material materialPropio;
+    private float umbralOriginal;
     
     [Header("Configuración de Acecho")]
     public float umbralVision = 0.5f; 
     public float rangoDeteccion = 15f; 
+
+    [Header("Efectos Visuales (Texturas)")]
+    public Texture texturaNormal;
+    public Texture texturaAcecho; 
+
+    [Header("Sonido de Movimiento")]
+    public AudioSource audioMovimiento; 
 
     [Header("Conexiones")]
     public ControlEfectosVR scriptEfectos;
@@ -16,20 +27,11 @@ public class EntidadAcechadora : MonoBehaviour
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        umbralOriginal = umbralVision;
+        renderizadorHijo = GetComponentInChildren<Renderer>();
         
-        if (Camera.main != null)
-        {
-            camaraObjetivo = Camera.main.transform;
-        }
-        else
-        {
-            Debug.LogError("No se encontró una cámara con el Tag 'MainCamera'");
-        }
-
-        if (agent != null && !agent.isOnNavMesh)
-        {
-            Debug.LogWarning("La entidad no inició sobre un NavMesh válido.");
-        }
+        if (renderizadorHijo != null) materialPropio = renderizadorHijo.material;
+        if (Camera.main != null) camaraObjetivo = Camera.main.transform;
     }
 
     void Update()
@@ -40,37 +42,64 @@ public class EntidadAcechadora : MonoBehaviour
         Vector3 direccionHaciaMi = (transform.position - camaraObjetivo.position).normalized;
         float dot = Vector3.Dot(camaraObjetivo.forward, direccionHaciaMi);
 
-        if (agent.isActiveAndEnabled && agent.isOnNavMesh)
+        if (agent.isActiveAndEnabled && agent.isOnNavMesh && umbralVision <= 1.0f)
         {
-            // Solo persigue si está en rango Y el jugador no lo mira
             if (distanciaAlJugador <= rangoDeteccion && dot < umbralVision) 
             {
                 agent.isStopped = false;
                 agent.SetDestination(camaraObjetivo.position);
+                CambiarTextura(texturaNormal);
+                GestionarSonido(true);
             }
             else 
             {
                 agent.isStopped = true;
+                if (distanciaAlJugador <= rangoDeteccion && dot >= umbralVision) 
+                    CambiarTextura(texturaAcecho);
+                else 
+                    CambiarTextura(texturaNormal);
+                
+                GestionarSonido(false);
             }
         }
+    }
+
+    public void CambiarTextura(Texture nuevaTextura)
+    {
+        if (materialPropio != null && nuevaTextura != null)
+        {
+            materialPropio.SetTexture("_BaseMap", nuevaTextura);
+            materialPropio.SetTexture("_MainTex", nuevaTextura);
+        }
+    }
+
+    void GestionarSonido(bool debeSonar)
+    {
+        if (audioMovimiento == null) return;
+        if (debeSonar && !audioMovimiento.isPlaying) audioMovimiento.Play();
+        else if (!debeSonar && audioMovimiento.isPlaying) audioMovimiento.Pause();
+    }
+
+    public IEnumerator CongelarEntidad(float tiempo)
+    {
+        if (agent == null) yield break;
+
+        agent.isStopped = true;
+        agent.velocity = Vector3.zero;
+        CambiarTextura(texturaAcecho);
+        GestionarSonido(false);
+
+        umbralVision = 2.0f; 
+        yield return new WaitForSeconds(tiempo);
+        umbralVision = umbralOriginal;
+        CambiarTextura(texturaNormal);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        // Si el enemigo toca a la cámara (MainCamera)
         if (other.CompareTag("MainCamera") || other.CompareTag("Player"))
         {
-            if (scriptEfectos != null)
-            {
-                // Activamos la corrutina de efectos directamente
-                scriptEfectos.ActivarSustoManual();
-            }
+            if (scriptEfectos != null) scriptEfectos.ActivarSustoManual();
         }
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, rangoDeteccion);
     }
 }
