@@ -12,6 +12,11 @@ public class CuadroActivablePorApunte : MonoBehaviour
     [SerializeField] private GameObject senaleticaSinTinta;
     [SerializeField] private bool resetearProgresoSinTinta = true;
 
+    [Header("Barca opcional")]
+    [SerializeField] private bool guardarEstadoBarcaAntesDeTransicion = false;
+    [SerializeField] private BarcaEmbarqueXR embarqueBarca;
+    [SerializeField] private string idTramoBarca = "Pueblo";
+
     [Header("Feedback sin tinta")]
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip sonidoSinTinta;
@@ -315,9 +320,36 @@ public class CuadroActivablePorApunte : MonoBehaviour
         StartCoroutine(RutinaFinalizacion());
     }
 
+    private void GuardarEstadoBarcaParaTransicion()
+    {
+        if (!guardarEstadoBarcaAntesDeTransicion)
+            return;
+
+        if (embarqueBarca != null && embarqueBarca.JugadorAbordo)
+        {
+            EstadoGlobalBarca.Instance?.PrepararCambioEscenaEnBarca(
+                nombreEscenaSiguiente,
+                idTramoBarca,
+                1f
+            );
+
+            if (mostrarLogs)
+                Debug.Log("Se guardó transición en barca hacia: " + nombreEscenaSiguiente, this);
+        }
+        else
+        {
+            EstadoGlobalBarca.Instance?.BajarDeBarca();
+
+            if (mostrarLogs)
+                Debug.Log("La transición ocurre sin barca.", this);
+        }
+    }
+
     private IEnumerator RutinaFinalizacion()
     {
         yield return new WaitForSeconds(0.5f);
+
+        GuardarEstadoBarcaParaTransicion();
 
         if (transicionEscena != null)
             transicionEscena.IniciarTransicion(nombreEscenaSiguiente);
