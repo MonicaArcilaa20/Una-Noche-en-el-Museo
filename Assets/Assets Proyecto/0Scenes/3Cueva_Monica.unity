@@ -371,6 +371,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: XR Origin (XR Rig)
       objectReference: {fileID: 0}
+    - target: {fileID: 1717954561962503725, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1717954561962503726, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 587.95
@@ -986,6 +990,68 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &698377001
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3088840844220288005, guid: 4e5f1938a6549bd4dbf2da7a65d957a6, type: 3}
+      propertyPath: m_Name
+      value: XR Origin (XR Rig) Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 3088840844220288006, guid: 4e5f1938a6549bd4dbf2da7a65d957a6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 444.67404
+      objectReference: {fileID: 0}
+    - target: {fileID: 3088840844220288006, guid: 4e5f1938a6549bd4dbf2da7a65d957a6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.66085
+      objectReference: {fileID: 0}
+    - target: {fileID: 3088840844220288006, guid: 4e5f1938a6549bd4dbf2da7a65d957a6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 16.12123
+      objectReference: {fileID: 0}
+    - target: {fileID: 3088840844220288006, guid: 4e5f1938a6549bd4dbf2da7a65d957a6, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.99488527
+      objectReference: {fileID: 0}
+    - target: {fileID: 3088840844220288006, guid: 4e5f1938a6549bd4dbf2da7a65d957a6, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3088840844220288006, guid: 4e5f1938a6549bd4dbf2da7a65d957a6, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.10101111
+      objectReference: {fileID: 0}
+    - target: {fileID: 3088840844220288006, guid: 4e5f1938a6549bd4dbf2da7a65d957a6, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3088840844220288006, guid: 4e5f1938a6549bd4dbf2da7a65d957a6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3088840844220288006, guid: 4e5f1938a6549bd4dbf2da7a65d957a6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -11.595
+      objectReference: {fileID: 0}
+    - target: {fileID: 3088840844220288006, guid: 4e5f1938a6549bd4dbf2da7a65d957a6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4e5f1938a6549bd4dbf2da7a65d957a6, type: 3}
+--- !u!4 &698377002 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6251584483253482054, guid: 4e5f1938a6549bd4dbf2da7a65d957a6, type: 3}
+  m_PrefabInstance: {fileID: 698377001}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &789456651
 GameObject:
   m_ObjectHideFlags: 0
@@ -1084,6 +1150,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: XR Device Simulator
       objectReference: {fileID: 0}
+    - target: {fileID: 6598815579406187037, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1104,7 +1174,7 @@ PrefabInstance:
     - target: {fileID: 1648627134683312683, guid: b126ec1280b4f1f488dd88b45fb08163, type: 3}
       propertyPath: anclaManoDerecha
       value: 
-      objectReference: {fileID: 1133114673}
+      objectReference: {fileID: 698377002}
     - target: {fileID: 1648627134683312683, guid: b126ec1280b4f1f488dd88b45fb08163, type: 3}
       propertyPath: animadorManoDerecha
       value: 
@@ -6875,6 +6945,7 @@ SceneRoots:
   - {fileID: 1123051879}
   - {fileID: 1590474774}
   - {fileID: 820413717}
+  - {fileID: 698377001}
   - {fileID: 185420306}
   - {fileID: 5334945741651149992}
   - {fileID: 4653786488447074997}
