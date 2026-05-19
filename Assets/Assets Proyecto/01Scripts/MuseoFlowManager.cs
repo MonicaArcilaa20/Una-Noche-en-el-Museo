@@ -10,15 +10,11 @@ public class MuseoFlowManager : MonoBehaviour
     [SerializeField] private GameObject panelSubtitulos;
     [SerializeField] private TMP_Text textoSubtitulos;
 
-    [Header("Guías visuales")]
+    [Header("Objetos / guías")]
     [SerializeField] private GameObject senaleticaPasilloIzquierdo;
-    [SerializeField] private GameObject objetoPincelReal;
-    [SerializeField] private GameObject guiaVisualPincel;
-
+    [SerializeField] private GameObject objetoPincel;      // pincel real en escena
     [SerializeField] private GameObject senaleticaPasilloDerecho;
-    [SerializeField] private GameObject objetoTintaReal;
-    [SerializeField] private GameObject guiaVisualTinta;
-
+    [SerializeField] private GameObject objetoTinta;       // tinta real en escena
     [SerializeField] private GameObject senaleticaPrimerCuadro;
 
     [Header("Audio Voz Museo")]
@@ -59,6 +55,7 @@ public class MuseoFlowManager : MonoBehaviour
     [Header("Debug")]
     [SerializeField] private bool mostrarLogs = true;
 
+    private bool pincelPreparado = false;
     private bool pincelTomado = false;
     private bool tintaTomada = false;
     private bool cuadroActivadoAvisado = false;
@@ -86,20 +83,14 @@ public class MuseoFlowManager : MonoBehaviour
         if (senaleticaPasilloIzquierdo != null)
             senaleticaPasilloIzquierdo.SetActive(false);
 
-        if (objetoPincelReal != null)
-            objetoPincelReal.SetActive(false);
-
-        if (guiaVisualPincel != null)
-            guiaVisualPincel.SetActive(false);
+        if (objetoPincel != null)
+            objetoPincel.SetActive(false);
 
         if (senaleticaPasilloDerecho != null)
             senaleticaPasilloDerecho.SetActive(false);
 
-        if (objetoTintaReal != null)
-            objetoTintaReal.SetActive(false);
-
-        if (guiaVisualTinta != null)
-            guiaVisualTinta.SetActive(false);
+        if (objetoTinta != null)
+            objetoTinta.SetActive(false);
 
         if (senaleticaPrimerCuadro != null)
             senaleticaPrimerCuadro.SetActive(false);
@@ -110,6 +101,37 @@ public class MuseoFlowManager : MonoBehaviour
         rutinaCanvasMovimiento = StartCoroutine(MostrarCanvasTemporal(canvasControlesMovimiento, duracionCanvasMovimiento));
     }
 
+    // Se llama justo cuando termina la intro 3
+    private void PrepararPincelInicial()
+    {
+        if (pincelPreparado)
+            return;
+
+        pincelPreparado = true;
+
+        if (senaleticaPasilloIzquierdo != null)
+            senaleticaPasilloIzquierdo.SetActive(true);
+
+        if (objetoPincel != null)
+            objetoPincel.SetActive(true);
+
+        if (mostrarLogs)
+            Debug.Log("MuseoFlowManager: Pincel inicial visible y listo para agarrar.");
+    }
+
+    // Se llama desde el evento AlEquipar del ControlPincel
+    public void OnPincelEquipadoPrepararTrigger()
+    {
+        if (mostrarLogs)
+            Debug.Log("MuseoFlowManager: Pincel equipado, ocultando señalética y esperando trigger.");
+
+        if (senaleticaPasilloIzquierdo != null)
+            senaleticaPasilloIzquierdo.SetActive(false);
+
+        // NO apagar objetoPincel aquí
+    }
+
+    // Se llama cuando cruza el trigger después de agarrar el pincel
     public void OnPincelTomado()
     {
         if (pincelTomado)
@@ -118,18 +140,16 @@ public class MuseoFlowManager : MonoBehaviour
         pincelTomado = true;
 
         if (mostrarLogs)
-            Debug.Log("MuseoFlowManager: Pincel tomado.");
+            Debug.Log("MuseoFlowManager: Paso narrativo del pincel activado.");
 
         PrepararNuevaSecuencia();
 
         if (canvasControlesMovimiento != null)
             canvasControlesMovimiento.SetActive(false);
 
+        // Seguridad: apagar también aquí la primera flecha
         if (senaleticaPasilloIzquierdo != null)
             senaleticaPasilloIzquierdo.SetActive(false);
-
-        if (guiaVisualPincel != null)
-            guiaVisualPincel.SetActive(false);
 
         if (rutinaCanvasPincel != null)
             StopCoroutine(rutinaCanvasPincel);
@@ -153,9 +173,7 @@ public class MuseoFlowManager : MonoBehaviour
         if (senaleticaPasilloDerecho != null)
             senaleticaPasilloDerecho.SetActive(false);
 
-        if (guiaVisualTinta != null)
-            guiaVisualTinta.SetActive(false);
-
+        // La tinta real puede desaparecer por su propio script de pickup
         secuenciaActual = StartCoroutine(SecuenciaTintaTomada());
     }
 
@@ -203,15 +221,7 @@ public class MuseoFlowManager : MonoBehaviour
         yield return ReproducirLinea(vozIntro3, textoIntro3);
 
         OcultarSubtitulos();
-
-        if (senaleticaPasilloIzquierdo != null)
-            senaleticaPasilloIzquierdo.SetActive(true);
-
-        if (objetoPincelReal != null)
-            objetoPincelReal.SetActive(true);
-
-        if (guiaVisualPincel != null)
-            guiaVisualPincel.SetActive(true);
+        PrepararPincelInicial();
     }
 
     private IEnumerator SecuenciaPincelTomado()
@@ -225,11 +235,8 @@ public class MuseoFlowManager : MonoBehaviour
         if (senaleticaPasilloDerecho != null)
             senaleticaPasilloDerecho.SetActive(true);
 
-        if (objetoTintaReal != null)
-            objetoTintaReal.SetActive(true);
-
-        if (guiaVisualTinta != null)
-            guiaVisualTinta.SetActive(true);
+        if (objetoTinta != null)
+            objetoTinta.SetActive(true);
     }
 
     private IEnumerator SecuenciaTintaTomada()

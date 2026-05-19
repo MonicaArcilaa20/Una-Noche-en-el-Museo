@@ -37,7 +37,7 @@ public class CuadroActivablePorApunte : MonoBehaviour
     [SerializeField] private Color colorEmisionActivo = Color.cyan;
 
     [Header("Overlay de ondas")]
-    [SerializeField] private OverlayMovimientoCuadro overlayOndas;
+    [SerializeField] private PinturaVivaController overlayOndas;
     [SerializeField] private bool mostrarOndasSoloConTinta = true;
 
     [Header("Flores oníricas opcionales")]
@@ -105,7 +105,7 @@ public class CuadroActivablePorApunte : MonoBehaviour
         }
 
         if (overlayOndas != null)
-            overlayOndas.DesactivarOndasInstantaneo();
+            overlayOndas.SetActivo(false);
 
         PrepararFloresOniricas();
     }

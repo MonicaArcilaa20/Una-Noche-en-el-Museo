@@ -707,11 +707,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25a07ef133a37d140a87cdf1f1c75fdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &75847077 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2887457977349038196, guid: f2f5e24ac6078974a9a93ec14e254de1, type: 3}
-  m_PrefabInstance: {fileID: 1025817294}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &75847078 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4439517957450881598, guid: f2f5e24ac6078974a9a93ec14e254de1, type: 3}
@@ -2076,6 +2071,9 @@ MonoBehaviour:
   soloUnaVez: 1
   iniciarDesactivado: 1
   mostrarLogs: 1
+  objetosAlHabilitarTrigger: []
+  objetosAlDeshabilitarTrigger: []
+  objetosAlActivarPaso: []
 --- !u!65 &204764599
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4666,11 +4664,9 @@ MonoBehaviour:
   panelSubtitulos: {fileID: 0}
   textoSubtitulos: {fileID: 0}
   senaleticaPasilloIzquierdo: {fileID: 783908167}
-  objetoPincelReal: {fileID: 7676735754351840423}
-  guiaVisualPincel: {fileID: 1409837813}
+  objetoPincel: {fileID: 7676735754351840423}
   senaleticaPasilloDerecho: {fileID: 90921205}
-  objetoTintaReal: {fileID: 1718460433}
-  guiaVisualTinta: {fileID: 75847077}
+  objetoTinta: {fileID: 1718460433}
   senaleticaPrimerCuadro: {fileID: 1480454527}
   audioSourceVoz: {fileID: 946288332}
   vozIntro1: {fileID: 8300000, guid: 112215a42cbb7f64289ee5849fcd0ff9, type: 3}
@@ -4704,8 +4700,8 @@ MonoBehaviour:
     una invitaci\xF3n a entrar."
   duracionCanvasMovimiento: 0
   duracionCanvasPincel: 0
-  pausaEntreLineas: 0.5
-  duracionFallbackLinea: 4.5
+  pausaEntreLineas: 0
+  duracionFallbackLinea: 2
   mostrarLogs: 1
 --- !u!82 &463239105
 AudioSource:
@@ -14239,119 +14235,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!1 &988610728
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 988610729}
-  - component: {fileID: 988610732}
-  - component: {fileID: 988610731}
-  - component: {fileID: 988610730}
-  m_Layer: 0
-  m_Name: Plane (4)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &988610729
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 988610728}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0.47509018, y: 0.52346694, z: 0.4773376, w: -0.5219392}
-  m_LocalPosition: {x: 0.0004, y: 0.108, z: 0.0236}
-  m_LocalScale: {x: 0.01584255, y: 0.009234629, z: 0.00994815}
-  m_ConstrainProportionsScale: 1
-  m_Children: []
-  m_Father: {fileID: 1842300971}
-  m_LocalEulerAnglesHint: {x: 180.218, y: 90.031, z: 95.329}
---- !u!64 &988610730
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 988610728}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &988610731
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 988610728}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 8b087d9137b0fff4c8b1d9e6f5060538, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_MaskInteraction: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &988610732
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 988610728}
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1010392084
 GameObject:
   m_ObjectHideFlags: 0
@@ -15053,6 +14936,10 @@ PrefabInstance:
     - target: {fileID: 2887457977349038196, guid: f2f5e24ac6078974a9a93ec14e254de1, type: 3}
       propertyPath: m_Name
       value: Tinta (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2887457977349038196, guid: f2f5e24ac6078974a9a93ec14e254de1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4439517957450881598, guid: f2f5e24ac6078974a9a93ec14e254de1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -17935,11 +17822,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1408300921}
   m_CullTransparentMesh: 1
---- !u!1 &1409837813 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 745926700015646299, guid: b126ec1280b4f1f488dd88b45fb08163, type: 3}
-  m_PrefabInstance: {fileID: 1362432406}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1409837814 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6319419231199467103, guid: b126ec1280b4f1f488dd88b45fb08163, type: 3}
@@ -26322,8 +26204,7 @@ Transform:
   m_LocalPosition: {x: -7.15, y: 0.6652387, z: 4.45}
   m_LocalScale: {x: 11.897132, y: 15.990531, z: 8.731557}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 988610729}
+  m_Children: []
   m_Father: {fileID: 486646747}
   m_LocalEulerAnglesHint: {x: -0.534, y: -267.154, z: 90.219}
 --- !u!64 &1842300972
@@ -33956,16 +33837,44 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1509803114}
     - target: {fileID: 1648627134683312683, guid: b126ec1280b4f1f488dd88b45fb08163, type: 3}
+      propertyPath: alEquipar.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1648627134683312683, guid: b126ec1280b4f1f488dd88b45fb08163, type: 3}
+      propertyPath: alEquipar.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1648627134683312683, guid: b126ec1280b4f1f488dd88b45fb08163, type: 3}
       propertyPath: alEquipar.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 463239104}
+    - target: {fileID: 1648627134683312683, guid: b126ec1280b4f1f488dd88b45fb08163, type: 3}
+      propertyPath: alEquipar.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 204764598}
     - target: {fileID: 1648627134683312683, guid: b126ec1280b4f1f488dd88b45fb08163, type: 3}
+      propertyPath: alEquipar.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1648627134683312683, guid: b126ec1280b4f1f488dd88b45fb08163, type: 3}
       propertyPath: alEquipar.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnPincelEquipadoPrepararTrigger
+      objectReference: {fileID: 0}
+    - target: {fileID: 1648627134683312683, guid: b126ec1280b4f1f488dd88b45fb08163, type: 3}
+      propertyPath: alEquipar.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: HabilitarTrigger
       objectReference: {fileID: 0}
     - target: {fileID: 1648627134683312683, guid: b126ec1280b4f1f488dd88b45fb08163, type: 3}
       propertyPath: alEquipar.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: MuseoFlowManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1648627134683312683, guid: b126ec1280b4f1f488dd88b45fb08163, type: 3}
+      propertyPath: alEquipar.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: UnaNocheEnElMuseo.MuseoPasoTrigger, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1648627134683312683, guid: b126ec1280b4f1f488dd88b45fb08163, type: 3}
+      propertyPath: alEquipar.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 1917991741873682255, guid: b126ec1280b4f1f488dd88b45fb08163, type: 3}
       propertyPath: alRecargar.m_PersistentCalls.m_Calls.Array.data[0].m_Target
