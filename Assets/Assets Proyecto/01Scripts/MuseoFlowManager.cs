@@ -12,10 +12,12 @@ public class MuseoFlowManager : MonoBehaviour
 
     [Header("Guías visuales")]
     [SerializeField] private GameObject senaleticaPasilloIzquierdo;
-    [SerializeField] private GameObject objetoPincel;
+    [SerializeField] private GameObject objetoPincelReal;
+    [SerializeField] private GameObject guiaVisualPincel;
 
     [SerializeField] private GameObject senaleticaPasilloDerecho;
-    [SerializeField] private GameObject objetoTinta;
+    [SerializeField] private GameObject objetoTintaReal;
+    [SerializeField] private GameObject guiaVisualTinta;
 
     [SerializeField] private GameObject senaleticaPrimerCuadro;
 
@@ -81,18 +83,23 @@ public class MuseoFlowManager : MonoBehaviour
 
         OcultarSubtitulos();
 
-        // Al inicio NO mostrar objetivos todavía
         if (senaleticaPasilloIzquierdo != null)
             senaleticaPasilloIzquierdo.SetActive(false);
 
-        if (objetoPincel != null)
-            objetoPincel.SetActive(false);
+        if (objetoPincelReal != null)
+            objetoPincelReal.SetActive(false);
+
+        if (guiaVisualPincel != null)
+            guiaVisualPincel.SetActive(false);
 
         if (senaleticaPasilloDerecho != null)
             senaleticaPasilloDerecho.SetActive(false);
 
-        if (objetoTinta != null)
-            objetoTinta.SetActive(false);
+        if (objetoTintaReal != null)
+            objetoTintaReal.SetActive(false);
+
+        if (guiaVisualTinta != null)
+            guiaVisualTinta.SetActive(false);
 
         if (senaleticaPrimerCuadro != null)
             senaleticaPrimerCuadro.SetActive(false);
@@ -121,9 +128,8 @@ public class MuseoFlowManager : MonoBehaviour
         if (senaleticaPasilloIzquierdo != null)
             senaleticaPasilloIzquierdo.SetActive(false);
 
-        // Normalmente el pincel ya no debe seguir como objetivo visual
-        if (objetoPincel != null)
-            objetoPincel.SetActive(false);
+        if (guiaVisualPincel != null)
+            guiaVisualPincel.SetActive(false);
 
         if (rutinaCanvasPincel != null)
             StopCoroutine(rutinaCanvasPincel);
@@ -147,8 +153,8 @@ public class MuseoFlowManager : MonoBehaviour
         if (senaleticaPasilloDerecho != null)
             senaleticaPasilloDerecho.SetActive(false);
 
-        if (objetoTinta != null)
-            objetoTinta.SetActive(false);
+        if (guiaVisualTinta != null)
+            guiaVisualTinta.SetActive(false);
 
         secuenciaActual = StartCoroutine(SecuenciaTintaTomada());
     }
@@ -171,7 +177,6 @@ public class MuseoFlowManager : MonoBehaviour
         secuenciaActual = StartCoroutine(SecuenciaCuadroActivado());
     }
 
-    // Compatibilidad con conexiones viejas
     public void OnLlegarPrimerCuadro()
     {
         OnPrimerCuadroActivado();
@@ -199,12 +204,14 @@ public class MuseoFlowManager : MonoBehaviour
 
         OcultarSubtitulos();
 
-        // Solo al terminar la intro aparecen la flecha izquierda y el pincel
         if (senaleticaPasilloIzquierdo != null)
             senaleticaPasilloIzquierdo.SetActive(true);
 
-        if (objetoPincel != null)
-            objetoPincel.SetActive(true);
+        if (objetoPincelReal != null)
+            objetoPincelReal.SetActive(true);
+
+        if (guiaVisualPincel != null)
+            guiaVisualPincel.SetActive(true);
     }
 
     private IEnumerator SecuenciaPincelTomado()
@@ -215,12 +222,14 @@ public class MuseoFlowManager : MonoBehaviour
 
         OcultarSubtitulos();
 
-        // Solo al terminar este bloque aparecen la flecha derecha y la tinta
         if (senaleticaPasilloDerecho != null)
             senaleticaPasilloDerecho.SetActive(true);
 
-        if (objetoTinta != null)
-            objetoTinta.SetActive(true);
+        if (objetoTintaReal != null)
+            objetoTintaReal.SetActive(true);
+
+        if (guiaVisualTinta != null)
+            guiaVisualTinta.SetActive(true);
     }
 
     private IEnumerator SecuenciaTintaTomada()
@@ -230,7 +239,6 @@ public class MuseoFlowManager : MonoBehaviour
 
         OcultarSubtitulos();
 
-        // Solo al terminar este bloque aparece la guía del primer cuadro
         if (senaleticaPrimerCuadro != null)
             senaleticaPrimerCuadro.SetActive(true);
     }

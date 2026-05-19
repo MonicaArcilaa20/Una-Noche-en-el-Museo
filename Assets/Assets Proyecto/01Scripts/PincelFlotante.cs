@@ -77,6 +77,13 @@ public class PincelFlotanteIdle : MonoBehaviour
         if (objetoVisibleEnFlotacion == null || controlPincel == null)
             return;
 
+        // Protección para no apagar el propio pincel por error.
+        if (objetoVisibleEnFlotacion == gameObject || transform.IsChildOf(objetoVisibleEnFlotacion.transform))
+        {
+            Debug.LogWarning("[PincelFlotanteIdle] 'objetoVisibleEnFlotacion' está mal asignado. Debe ser solo un efecto visual auxiliar.", this);
+            return;
+        }
+
         bool debeEstarActivo = !controlPincel.EstaAgarrado && !controlPincel.EstaEquipado;
         objetoVisibleEnFlotacion.SetActive(debeEstarActivo);
     }
