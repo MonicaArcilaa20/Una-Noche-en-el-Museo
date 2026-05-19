@@ -17,12 +17,14 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Assets Proyecto/0Scenes/2Pueblo_Monicaa.unity
     guid: c9b869b19a87c1047a832348f023908d
-  - enabled: 1
+  - enabled: 0
     path: Assets/Assets Proyecto/0Scenes/3Cueva_Monica.unity
     guid: a73b6235d2068944a88292f62a714129
-  - enabled: 1
+  - enabled: 0
     path: "Assets/Assets Proyecto/0Scenes/4On\xEDrico_Monica.unity"
     guid: 75a413ef67dcf734eb576f71ce86c88c
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: c17e3703370b43f4bac4cce27c1b0408, type: 2}
+    com.unity.xr.openxr.settings4: {fileID: 11400000, guid: 4b380073075bbfe4f92d578f862d95d3, type: 2}
   m_UseUCBPForAssetBundles: 0

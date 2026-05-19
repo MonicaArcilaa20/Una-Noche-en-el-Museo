@@ -305,6 +305,68 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25a07ef133a37d140a87cdf1f1c75fdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &69771826
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3088840844220288005, guid: 4e5f1938a6549bd4dbf2da7a65d957a6, type: 3}
+      propertyPath: m_Name
+      value: XR Origin (XR Rig) Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 3088840844220288006, guid: 4e5f1938a6549bd4dbf2da7a65d957a6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -21.638
+      objectReference: {fileID: 0}
+    - target: {fileID: 3088840844220288006, guid: 4e5f1938a6549bd4dbf2da7a65d957a6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.72
+      objectReference: {fileID: 0}
+    - target: {fileID: 3088840844220288006, guid: 4e5f1938a6549bd4dbf2da7a65d957a6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 3.99791
+      objectReference: {fileID: 0}
+    - target: {fileID: 3088840844220288006, guid: 4e5f1938a6549bd4dbf2da7a65d957a6, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.69733477
+      objectReference: {fileID: 0}
+    - target: {fileID: 3088840844220288006, guid: 4e5f1938a6549bd4dbf2da7a65d957a6, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3088840844220288006, guid: 4e5f1938a6549bd4dbf2da7a65d957a6, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.71674556
+      objectReference: {fileID: 0}
+    - target: {fileID: 3088840844220288006, guid: 4e5f1938a6549bd4dbf2da7a65d957a6, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3088840844220288006, guid: 4e5f1938a6549bd4dbf2da7a65d957a6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3088840844220288006, guid: 4e5f1938a6549bd4dbf2da7a65d957a6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -91.573
+      objectReference: {fileID: 0}
+    - target: {fileID: 3088840844220288006, guid: 4e5f1938a6549bd4dbf2da7a65d957a6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4e5f1938a6549bd4dbf2da7a65d957a6, type: 3}
+--- !u!4 &69771827 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6251584483253482054, guid: 4e5f1938a6549bd4dbf2da7a65d957a6, type: 3}
+  m_PrefabInstance: {fileID: 69771826}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &149027781
 GameObject:
   m_ObjectHideFlags: 0
@@ -467,6 +529,10 @@ PrefabInstance:
     - target: {fileID: 1717954561962503725, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_Name
       value: XR Origin (XR Rig)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1717954561962503725, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1717954561962503725, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_TagString
@@ -13143,7 +13209,7 @@ MonoBehaviour:
   estaAgarrado: 0
   estaActivo: 0
   estaEquipado: 0
-  anclaManoDerecha: {fileID: 1133114673}
+  anclaManoDerecha: {fileID: 69771827}
   origenMagia: {fileID: 4718324042683149075}
   animadorManoDerecha: {fileID: 5686134208879746594}
   controladorGripManoDerecha: {fileID: 1509803114}
@@ -13335,6 +13401,7 @@ SceneRoots:
   - {fileID: 1590474774}
   - {fileID: 1123051879}
   - {fileID: 820413717}
+  - {fileID: 69771826}
   - {fileID: 185420306}
   - {fileID: 825379240}
   - {fileID: 5223980683529736014}
