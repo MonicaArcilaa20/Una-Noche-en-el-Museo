@@ -1957,7 +1957,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6598815579406187037, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -13251,10 +13251,16 @@ MonoBehaviour:
   estaEquipado: 0
   anclaManoDerecha: {fileID: 69771827}
   origenMagia: {fileID: 4718324042683149075}
+  visualsRoot: {fileID: 0}
+  forzarEscalaLocalAlEquipar: 1
+  forzarEscalaLocalEnLateUpdate: 1
   animadorManoDerecha: {fileID: 1686404413}
   controladorGripManoDerecha: {fileID: 1686404412}
   parametroGrip: Grip
   valorGripCerrado: 1
+  desactivarDynamicAttachAlIniciar: 1
+  desactivarMatchAttachAlIniciar: 1
+  desactivarGrabInteractableAlEquipar: 1
   mostrarLogs: 1
   alAgarrar:
     m_PersistentCalls:
