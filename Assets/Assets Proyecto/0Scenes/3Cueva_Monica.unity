@@ -802,20 +802,21 @@ MonoBehaviour:
   puntoReaccion: {fileID: 1786178051}
   renderersNiebla: []
   particulasNiebla: []
-  volumenLocal: {fileID: 1882795700}
+  volumenObjetivo: {fileID: 0}
   tagJugador: Player
   distanciaMaxima: 10
-  anguloMaximo: 25
+  radioReaccion: 2.2
+  usarLineaDeVision: 1
   mascaraBloqueo:
     serializedVersion: 2
     m_Bits: 4294967295
-  usarLineaDeVision: 1
   alphaNieblaReposo: 1
   alphaNieblaDisipada: 0.15
   pesoVolumenReposo: 1
   pesoVolumenDisipado: 0.2
   velocidadCambio: 2.5
   mostrarLogs: 0
+  dibujarDebug: 1
 --- !u!65 &678642104
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1108,8 +1109,8 @@ ParticleSystemRenderer:
   m_RenderMode: 0
   m_MeshDistribution: 0
   m_SortMode: 0
-  m_MinParticleSize: 0
-  m_MaxParticleSize: 0.5
+  m_MinParticleSize: 1.22
+  m_MaxParticleSize: 2.54
   m_CameraVelocityScale: 0
   m_VelocityScale: 0
   m_LengthScale: 2
