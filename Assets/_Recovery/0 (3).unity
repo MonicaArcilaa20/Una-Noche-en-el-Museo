@@ -801,21 +801,23 @@ MonoBehaviour:
   brushLightMode: {fileID: 367490211}
   puntoReaccion: {fileID: 1786178051}
   renderersNiebla: []
-  particulasNiebla: []
-  volumenLocal: {fileID: 1882795700}
+  particulasNiebla:
+  - {fileID: 936768979}
+  volumenObjetivo: {fileID: 1882795700}
   tagJugador: Player
-  distanciaMaxima: 10
-  anguloMaximo: 25
+  distanciaMaxima: 16
+  radioReaccion: 2.2
+  usarLineaDeVision: 0
   mascaraBloqueo:
     serializedVersion: 2
     m_Bits: 4294967295
-  usarLineaDeVision: 1
   alphaNieblaReposo: 1
   alphaNieblaDisipada: 0.15
   pesoVolumenReposo: 1
-  pesoVolumenDisipado: 0.2
+  pesoVolumenDisipado: 0.5
   velocidadCambio: 2.5
-  mostrarLogs: 0
+  mostrarLogs: 1
+  dibujarDebug: 1
 --- !u!65 &678642104
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -835,8 +837,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 4.27, y: 8.844202, z: 8.84}
-  m_Center: {x: 0, y: 2.0321007, z: 0}
+  m_Size: {x: 14.018423, y: 8.844202, z: 8.84}
+  m_Center: {x: -4.8742113, y: 2.0321007, z: 0}
 --- !u!4 &678642105
 Transform:
   m_ObjectHideFlags: 0
@@ -1153,7 +1155,7 @@ ParticleSystem:
   emitterVelocityMode: 1
   looping: 1
   prewarm: 0
-  playOnAwake: 0
+  playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -6705,7 +6707,7 @@ Transform:
   m_GameObject: {fileID: 1786178050}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.96, y: 0, z: 0}
+  m_LocalPosition: {x: -9.27, y: 0, z: 0.26}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6728,7 +6730,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1882795700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6778,7 +6780,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 11.381531, y: 11.019682, z: 17.181458}
   m_Center: {x: 5.1907654, y: 5.009841, z: -7.0830536}

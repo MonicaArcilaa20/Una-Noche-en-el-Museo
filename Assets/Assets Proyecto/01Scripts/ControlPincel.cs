@@ -17,11 +17,21 @@ public class ControlPincel : MonoBehaviour
     [SerializeField] private Transform anclaManoDerecha;
     [SerializeField] private Transform origenMagia;
 
+    [Header("Raíces visuales opcionales")]
+    [SerializeField] private Transform visualsRoot;
+    [SerializeField] private bool forzarEscalaLocalAlEquipar = true;
+    [SerializeField] private bool forzarEscalaLocalEnLateUpdate = true;
+
     [Header("Mano derecha")]
     [SerializeField] private Animator animadorManoDerecha;
     [SerializeField] private MonoBehaviour controladorGripManoDerecha;
     [SerializeField] private string parametroGrip = "Grip";
     [SerializeField] private float valorGripCerrado = 1f;
+
+    [Header("XR Grab")]
+    [SerializeField] private bool desactivarDynamicAttachAlIniciar = true;
+    [SerializeField] private bool desactivarMatchAttachAlIniciar = true;
+    [SerializeField] private bool desactivarGrabInteractableAlEquipar = true;
 
     [Header("Debug")]
     [SerializeField] private bool mostrarLogs = true;
@@ -37,10 +47,24 @@ public class ControlPincel : MonoBehaviour
     private PincelTinta sistemaTinta;
     private PincelPersistenciaEscena persistencia;
 
+    private Vector3 escalaLocalInicialRaiz;
+    private Vector3 escalaLocalInicialVisuals;
+    private bool escalaInicialCapturadaVisuals = false;
+
     public bool EstaAgarrado => estaAgarrado;
     public bool EstaActivo => estaActivo;
     public bool EstaEquipado => estaEquipado;
     public Transform OrigenMagia => origenMagia != null ? origenMagia : transform;
+
+    private void Reset()
+    {
+        if (visualsRoot == null)
+        {
+            Transform hijoVisuals = transform.Find("Visuals");
+            if (hijoVisuals != null)
+                visualsRoot = hijoVisuals;
+        }
+    }
 
     private void Awake()
     {
@@ -49,17 +73,39 @@ public class ControlPincel : MonoBehaviour
         sistemaTinta = GetComponent<PincelTinta>();
         persistencia = GetComponent<PincelPersistenciaEscena>();
 
+        escalaLocalInicialRaiz = transform.localScale;
+
+        if (visualsRoot != null)
+        {
+            escalaLocalInicialVisuals = visualsRoot.localScale;
+            escalaInicialCapturadaVisuals = true;
+        }
+
         rb.useGravity = false;
+
+        if (grabInteractable != null)
+        {
+            if (desactivarDynamicAttachAlIniciar)
+                grabInteractable.useDynamicAttach = false;
+
+            if (desactivarMatchAttachAlIniciar)
+            {
+                grabInteractable.matchAttachPosition = false;
+                grabInteractable.matchAttachRotation = false;
+            }
+        }
     }
 
     private void OnEnable()
     {
-        grabInteractable.selectEntered.AddListener(CuandoSeAgarra);
+        if (grabInteractable != null)
+            grabInteractable.selectEntered.AddListener(CuandoSeAgarra);
     }
 
     private void OnDisable()
     {
-        grabInteractable.selectEntered.RemoveListener(CuandoSeAgarra);
+        if (grabInteractable != null)
+            grabInteractable.selectEntered.RemoveListener(CuandoSeAgarra);
     }
 
     private void CuandoSeAgarra(SelectEnterEventArgs args)
@@ -70,10 +116,9 @@ public class ControlPincel : MonoBehaviour
         estaAgarrado = true;
 
         if (mostrarLogs)
-            Debug.Log("Pincel agarrado por primera vez");
+            Debug.Log("[ControlPincel] Pincel agarrado por primera vez", this);
 
         alAgarrar?.Invoke();
-
         StartCoroutine(EquiparAlSiguienteFrame());
     }
 
@@ -90,6 +135,9 @@ public class ControlPincel : MonoBehaviour
 
         transform.position = anclaManoDerecha.position;
         transform.rotation = anclaManoDerecha.rotation;
+
+        if (forzarEscalaLocalEnLateUpdate)
+            RestaurarEscalasLocales();
     }
 
     public void EncenderPincel()
@@ -100,14 +148,14 @@ public class ControlPincel : MonoBehaviour
         if (sistemaTinta != null && !sistemaTinta.TieneTinta())
         {
             if (mostrarLogs)
-                Debug.Log("No se puede encender el pincel: sin tinta");
+                Debug.Log("[ControlPincel] No se puede encender el pincel: sin tinta", this);
             return;
         }
 
         estaActivo = true;
 
         if (mostrarLogs)
-            Debug.Log("Pincel encendido");
+            Debug.Log("[ControlPincel] Pincel encendido", this);
 
         alEncender?.Invoke();
         persistencia?.GuardarAhora();
@@ -121,7 +169,7 @@ public class ControlPincel : MonoBehaviour
         estaActivo = false;
 
         if (mostrarLogs)
-            Debug.Log("Pincel apagado");
+            Debug.Log("[ControlPincel] Pincel apagado", this);
 
         alApagar?.Invoke();
         persistencia?.GuardarAhora();
@@ -134,7 +182,7 @@ public class ControlPincel : MonoBehaviour
 
         if (anclaManoDerecha == null)
         {
-            Debug.LogError("Falta asignar anclaManoDerecha en ControlPincel.");
+            Debug.LogError("[ControlPincel] Falta asignar anclaManoDerecha.", this);
             return;
         }
 
@@ -151,11 +199,16 @@ public class ControlPincel : MonoBehaviour
         rb.angularVelocity = Vector3.zero;
         rb.isKinematic = true;
 
-        transform.SetParent(anclaManoDerecha, true);
-        transform.position = anclaManoDerecha.position;
-        transform.rotation = anclaManoDerecha.rotation;
+        // Importante: false para adoptar el espacio local del ancla sin heredar poses raras.
+        transform.SetParent(anclaManoDerecha, false);
+        transform.localPosition = Vector3.zero;
+        transform.localRotation = Quaternion.identity;
 
-        grabInteractable.enabled = false;
+        if (forzarEscalaLocalAlEquipar)
+            RestaurarEscalasLocales();
+
+        if (desactivarGrabInteractableAlEquipar && grabInteractable != null)
+            grabInteractable.enabled = false;
 
         if (controladorGripManoDerecha != null)
             controladorGripManoDerecha.enabled = false;
@@ -164,9 +217,31 @@ public class ControlPincel : MonoBehaviour
             animadorManoDerecha.SetFloat(parametroGrip, valorGripCerrado);
 
         if (mostrarLogs)
-            Debug.Log("Pincel equipado permanentemente en la mano derecha");
+        {
+            Debug.Log("[ControlPincel] Pincel equipado permanentemente en la mano derecha", this);
+            Debug.Log("[ControlPincel] Escala raíz actual: " + transform.localScale, this);
+
+            if (visualsRoot != null)
+                Debug.Log("[ControlPincel] Escala visuals actual: " + visualsRoot.localScale, this);
+        }
 
         alEquipar?.Invoke();
         persistencia?.GuardarAhora();
+    }
+
+    public void ReasignarAnclaManoDerecha(Transform nuevaAncla)
+    {
+        anclaManoDerecha = nuevaAncla;
+
+        if (mostrarLogs && nuevaAncla != null)
+            Debug.Log("[ControlPincel] Nueva ancla asignada: " + nuevaAncla.name, this);
+    }
+
+    private void RestaurarEscalasLocales()
+    {
+        transform.localScale = escalaLocalInicialRaiz;
+
+        if (visualsRoot != null && escalaInicialCapturadaVisuals)
+            visualsRoot.localScale = escalaLocalInicialVisuals;
     }
 }

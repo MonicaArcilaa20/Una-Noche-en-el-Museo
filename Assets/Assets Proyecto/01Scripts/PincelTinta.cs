@@ -185,4 +185,9 @@ public class PincelTinta : MonoBehaviour
             );
         }
     }
+
+    public bool TieneTinta()
+    {
+        return TieneTinta(0.01f);
+    }
 }

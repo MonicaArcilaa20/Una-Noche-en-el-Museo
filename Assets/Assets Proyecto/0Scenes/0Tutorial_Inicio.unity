@@ -357,6 +357,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4398507152880268600, guid: 4e5f1938a6549bd4dbf2da7a65d957a6, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4398507152880268600, guid: 4e5f1938a6549bd4dbf2da7a65d957a6, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4398507152880268600, guid: 4e5f1938a6549bd4dbf2da7a65d957a6, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4398507154583107033, guid: 4e5f1938a6549bd4dbf2da7a65d957a6, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4398507154583107033, guid: 4e5f1938a6549bd4dbf2da7a65d957a6, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4398507154583107033, guid: 4e5f1938a6549bd4dbf2da7a65d957a6, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1933,7 +1957,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6598815579406187037, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3789,6 +3813,22 @@ MonoBehaviour:
   volumenSonido: 1
   reproducirEnFadeIn: 1
   reproducirEnFadeOut: 1
+--- !u!114 &1686404412 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6147304453156795603, guid: 4e5f1938a6549bd4dbf2da7a65d957a6, type: 3}
+  m_PrefabInstance: {fileID: 69771826}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc21adb6b4763ff43a9963e1825e7e1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HandSelectionAnimator
+--- !u!95 &1686404413 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 9025592879448990430, guid: 4e5f1938a6549bd4dbf2da7a65d957a6, type: 3}
+  m_PrefabInstance: {fileID: 69771826}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1686962910
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13211,8 +13251,8 @@ MonoBehaviour:
   estaEquipado: 0
   anclaManoDerecha: {fileID: 69771827}
   origenMagia: {fileID: 4718324042683149075}
-  animadorManoDerecha: {fileID: 5686134208879746594}
-  controladorGripManoDerecha: {fileID: 1509803114}
+  animadorManoDerecha: {fileID: 1686404413}
+  controladorGripManoDerecha: {fileID: 1686404412}
   parametroGrip: Grip
   valorGripCerrado: 1
   mostrarLogs: 1
