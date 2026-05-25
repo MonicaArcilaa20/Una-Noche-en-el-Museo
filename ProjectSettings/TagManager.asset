@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Pincel
   - PasoTinta
+  - Barco
   layers:
   - Default
   - TransparentFX
