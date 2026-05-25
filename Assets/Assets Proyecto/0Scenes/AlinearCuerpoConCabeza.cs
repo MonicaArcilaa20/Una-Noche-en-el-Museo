@@ -8,6 +8,10 @@ public class AlinearCuerpoConCabeza : MonoBehaviour
     [SerializeField] private bool soloMientrasSeMueve = false;
     [SerializeField] private float magnitudMinimaMovimiento = 0.1f;
 
+    [Header("Bloqueo en barca")]
+    [SerializeField] private BarcaEmbarqueXR embarqueXR;
+    [SerializeField] private bool bloquearMientrasAbordo = true;
+
     [Header("Opcional")]
     [SerializeField] private CharacterController characterController;
 
@@ -24,6 +28,9 @@ public class AlinearCuerpoConCabeza : MonoBehaviour
     private void Update()
     {
         if (headTransform == null)
+            return;
+
+        if (bloquearMientrasAbordo && embarqueXR != null && embarqueXR.JugadorAbordo)
             return;
 
         if (soloMientrasSeMueve && !SeEstaMoviendo())
