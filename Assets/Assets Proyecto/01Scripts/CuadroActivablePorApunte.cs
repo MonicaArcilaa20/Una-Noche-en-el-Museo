@@ -38,6 +38,7 @@ public class CuadroActivablePorApunte : MonoBehaviour
 
     [Header("Overlay de ondas")]
     [SerializeField] private PinturaVivaController overlayOndas;
+    [SerializeField] private GameObject objetoOndas;
     [SerializeField] private bool mostrarOndasSoloConTinta = true;
 
     [Header("Flores oníricas opcionales")]
@@ -104,8 +105,17 @@ public class CuadroActivablePorApunte : MonoBehaviour
             materialInstancia.SetColor(propiedadEmision, colorEmisionReposo);
         }
 
+        if (objetoOndas == null && overlayOndas != null)
+            objetoOndas = overlayOndas.gameObject;
+
+        // Importante:
+        // Para que exista fade in / fade out, el objeto debe permanecer activo.
+        // El controlador se encargará de ocultar el renderer al final del fade.
+        if (objetoOndas != null && !objetoOndas.activeSelf)
+            objetoOndas.SetActive(true);
+
         if (overlayOndas != null)
-            overlayOndas.SetActivo(false);
+            overlayOndas.AplicarInstantaneoReposo();
 
         PrepararFloresOniricas();
     }
@@ -177,15 +187,40 @@ public class CuadroActivablePorApunte : MonoBehaviour
 
     private void ActualizarOverlayOndas(bool apuntandoAlCuadro, bool bloqueadoPorFaltaDeTinta)
     {
-        if (overlayOndas == null)
-            return;
-
         bool mostrar = apuntandoAlCuadro;
 
         if (mostrarOndasSoloConTinta && bloqueadoPorFaltaDeTinta)
             mostrar = false;
 
-        overlayOndas.SetActivo(mostrar);
+        if (mostrar)
+            MostrarOndas();
+        else
+            OcultarOndas();
+    }
+
+    private void MostrarOndas()
+    {
+        if (objetoOndas != null && !objetoOndas.activeSelf)
+            objetoOndas.SetActive(true);
+
+        if (overlayOndas != null)
+            overlayOndas.Activar();
+    }
+
+    private void OcultarOndas()
+    {
+        // No apagamos el GameObject aquí.
+        // Solo pedimos el fade out. El propio PinturaVivaController
+        // ocultará el renderer al final del fade.
+        if (overlayOndas != null)
+        {
+            overlayOndas.Desactivar();
+            return;
+        }
+
+        // Fallback por si no hay controlador.
+        if (objetoOndas != null && objetoOndas.activeSelf)
+            objetoOndas.SetActive(false);
     }
 
     private bool TieneTintaDisponible()
@@ -311,8 +346,10 @@ public class CuadroActivablePorApunte : MonoBehaviour
             corutinaParpadeo = null;
         }
 
-        if (overlayOndas != null && !mantenerFloresAbiertasAlCompletar)
-            overlayOndas.DesactivarOndas();
+        if (!mantenerFloresAbiertasAlCompletar)
+            OcultarOndas();
+        else
+            MostrarOndas();
 
         if (mantenerFloresAbiertasAlCompletar)
             ForzarFloresCompletas();
@@ -381,9 +418,7 @@ public class CuadroActivablePorApunte : MonoBehaviour
                 corutinaParpadeo = null;
             }
 
-            if (overlayOndas != null)
-                overlayOndas.DesactivarOndas();
-
+            OcultarOndas();
             ActualizarFloresOniricas(0f, false);
 
             if (mostrarLogs)

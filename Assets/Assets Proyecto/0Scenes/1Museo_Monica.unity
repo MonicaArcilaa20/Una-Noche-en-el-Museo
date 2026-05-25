@@ -1035,7 +1035,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 45139155f7f208c4c9b5ba0ac8116629, type: 2}
+  - {fileID: 2100000, guid: 09038ddf2187da34198b3ec60521472d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1174,7 +1174,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1177591983667099565, guid: 227c1f35d6c7c254181191deac6df7b0, type: 3}
   m_PrefabInstance: {fileID: 1161897118}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 658643317}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9e2f5958e662f434db945ddc7c27ec03, type: 3}
@@ -3179,18 +3179,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OverlayMovimientoCuadro
   objetivoRenderer: {fileID: 208006345}
-  propiedadIntensidad: _VidaIntensidad
-  propiedadBrillo: _VidaBrillo
-  usarBrillo: 1
-  intensidadReposo: 0
-  intensidadActiva: 1
-  brilloReposo: 0
-  brilloActivo: 1
+  propiedadTextura: _BaseMap
+  velocidadUVReposo: {x: 0, y: 0}
+  velocidadUVActiva: {x: 0.03, y: 0.015}
+  resetearOffsetAlApagar: 0
+  propiedadColor: _BaseColor
+  alphaReposo: 0
+  alphaActivo: 1
+  usarPulsoEscala: 1
+  multiplicadorEscalaReposo: 1
+  multiplicadorEscalaActiva: 1
+  amplitudPulsoEscala: 0.03
+  usarPulso: 0
+  amplitudPulsoAlpha: 0.12
+  velocidadPulso: 2
   velocidadSuavizado: 3
   iniciarActiva: 0
-  usarPulso: 0
-  amplitudPulso: 0.25
-  velocidadPulso: 2
+  ocultarRendererAlFinalDelFadeOut: 1
+  umbralOcultacion: 0.02
   mostrarLogs: 0
 --- !u!23 &208006345
 MeshRenderer:
@@ -3217,7 +3223,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -876546973899608171, guid: 8d96e9bba640d8f489a8b47fea91d2ac, type: 3}
+  - {fileID: 2100000, guid: 09038ddf2187da34198b3ec60521472d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5610,7 +5616,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ed5cd74ff8c625a48acc38f2ba6a35bb, type: 2}
+  - {fileID: 2100000, guid: 09038ddf2187da34198b3ec60521472d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6643,7 +6649,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 25fe8437a947487449119cac075f8abd, type: 2}
+  - {fileID: 2100000, guid: 09038ddf2187da34198b3ec60521472d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7238,7 +7244,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b9431e1ac3aac164fb45bf9c9ea7a696, type: 2}
+  - {fileID: 2100000, guid: 09038ddf2187da34198b3ec60521472d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7370,7 +7376,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8b087d9137b0fff4c8b1d9e6f5060538, type: 2}
+  - {fileID: 2100000, guid: 09038ddf2187da34198b3ec60521472d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7800,18 +7806,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OverlayMovimientoCuadro
   objetivoRenderer: {fileID: 515572722}
-  propiedadIntensidad: _VidaIntensidad
-  propiedadBrillo: _VidaBrillo
-  usarBrillo: 1
-  intensidadReposo: 0
-  intensidadActiva: 1
-  brilloReposo: 0
-  brilloActivo: 1
+  propiedadTextura: _BaseMap
+  velocidadUVReposo: {x: 0, y: 0}
+  velocidadUVActiva: {x: 0.03, y: 0.015}
+  resetearOffsetAlApagar: 0
+  propiedadColor: _BaseColor
+  alphaReposo: 0
+  alphaActivo: 1
+  usarPulsoEscala: 1
+  multiplicadorEscalaReposo: 1
+  multiplicadorEscalaActiva: 1
+  amplitudPulsoEscala: 0.03
+  usarPulso: 0
+  amplitudPulsoAlpha: 0.12
+  velocidadPulso: 2
   velocidadSuavizado: 3
   iniciarActiva: 0
-  usarPulso: 0
-  amplitudPulso: 0.25
-  velocidadPulso: 2
+  ocultarRendererAlFinalDelFadeOut: 1
+  umbralOcultacion: 0.02
   mostrarLogs: 0
 --- !u!23 &515572722
 MeshRenderer:
@@ -9001,7 +9013,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f9eed414ffef07542bb811b5e416b12e, type: 2}
+  - {fileID: 2100000, guid: 09038ddf2187da34198b3ec60521472d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -10096,6 +10108,16 @@ Transform:
   - {fileID: 1979114257}
   m_Father: {fileID: 361496510}
   m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
+--- !u!1 &658643317 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8232463414258352540, guid: 227c1f35d6c7c254181191deac6df7b0, type: 3}
+  m_PrefabInstance: {fileID: 1161897118}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &658643319 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 6980250606185309162, guid: 227c1f35d6c7c254181191deac6df7b0, type: 3}
+  m_PrefabInstance: {fileID: 1161897118}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &659658630
 GameObject:
   m_ObjectHideFlags: 0
@@ -10177,7 +10199,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 88b144fac086cd04581227d553550da4, type: 2}
+  - {fileID: 2100000, guid: 09038ddf2187da34198b3ec60521472d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -10770,7 +10792,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 45139155f7f208c4c9b5ba0ac8116629, type: 2}
+  - {fileID: 2100000, guid: 09038ddf2187da34198b3ec60521472d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -19756,6 +19778,22 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 946997174}
   m_Mesh: {fileID: -3502832121294062469, guid: 01ad1b2c68298874bb8bb1f7ff8d94cd, type: 3}
+--- !u!114 &951263322 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6147304453156795603, guid: 4e5f1938a6549bd4dbf2da7a65d957a6, type: 3}
+  m_PrefabInstance: {fileID: 1994767350}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc21adb6b4763ff43a9963e1825e7e1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HandSelectionAnimator
+--- !u!95 &951263323 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 9025592879448990430, guid: 4e5f1938a6549bd4dbf2da7a65d957a6, type: 3}
+  m_PrefabInstance: {fileID: 1994767350}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &984172930
 GameObject:
   m_ObjectHideFlags: 0
@@ -19814,7 +19852,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 89f83632f02f0a3478271e0a7d59a61e, type: 2}
+  - {fileID: 2100000, guid: 09038ddf2187da34198b3ec60521472d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -21887,7 +21925,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: dd7b34f9ff0ec644594f6d064b0554cf, type: 2}
+  - {fileID: 2100000, guid: 09038ddf2187da34198b3ec60521472d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -22696,6 +22734,98 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7948671461313759046}
     m_Modifications:
+    - target: {fileID: 1177591983667099565, guid: 227c1f35d6c7c254181191deac6df7b0, type: 3}
+      propertyPath: usarPulso
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1177591983667099565, guid: 227c1f35d6c7c254181191deac6df7b0, type: 3}
+      propertyPath: alphaActivo
+      value: 0.27
+      objectReference: {fileID: 0}
+    - target: {fileID: 1177591983667099565, guid: 227c1f35d6c7c254181191deac6df7b0, type: 3}
+      propertyPath: alphaReposo
+      value: 0.24
+      objectReference: {fileID: 0}
+    - target: {fileID: 1177591983667099565, guid: 227c1f35d6c7c254181191deac6df7b0, type: 3}
+      propertyPath: mostrarLogs
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1177591983667099565, guid: 227c1f35d6c7c254181191deac6df7b0, type: 3}
+      propertyPath: brilloActivo
+      value: 1.28
+      objectReference: {fileID: 0}
+    - target: {fileID: 1177591983667099565, guid: 227c1f35d6c7c254181191deac6df7b0, type: 3}
+      propertyPath: amplitudPulso
+      value: 0.46
+      objectReference: {fileID: 0}
+    - target: {fileID: 1177591983667099565, guid: 227c1f35d6c7c254181191deac6df7b0, type: 3}
+      propertyPath: velocidadUV.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1177591983667099565, guid: 227c1f35d6c7c254181191deac6df7b0, type: 3}
+      propertyPath: velocidadUV.y
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1177591983667099565, guid: 227c1f35d6c7c254181191deac6df7b0, type: 3}
+      propertyPath: escalaActiva.x
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1177591983667099565, guid: 227c1f35d6c7c254181191deac6df7b0, type: 3}
+      propertyPath: escalaActiva.y
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1177591983667099565, guid: 227c1f35d6c7c254181191deac6df7b0, type: 3}
+      propertyPath: escalaActiva.z
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1177591983667099565, guid: 227c1f35d6c7c254181191deac6df7b0, type: 3}
+      propertyPath: escalaReposo.x
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1177591983667099565, guid: 227c1f35d6c7c254181191deac6df7b0, type: 3}
+      propertyPath: escalaReposo.y
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1177591983667099565, guid: 227c1f35d6c7c254181191deac6df7b0, type: 3}
+      propertyPath: escalaReposo.z
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1177591983667099565, guid: 227c1f35d6c7c254181191deac6df7b0, type: 3}
+      propertyPath: velocidadPulso
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1177591983667099565, guid: 227c1f35d6c7c254181191deac6df7b0, type: 3}
+      propertyPath: usarPulsoEscala
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1177591983667099565, guid: 227c1f35d6c7c254181191deac6df7b0, type: 3}
+      propertyPath: intensidadActiva
+      value: 4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1177591983667099565, guid: 227c1f35d6c7c254181191deac6df7b0, type: 3}
+      propertyPath: objetivoRenderer
+      value: 
+      objectReference: {fileID: 658643319}
+    - target: {fileID: 1177591983667099565, guid: 227c1f35d6c7c254181191deac6df7b0, type: 3}
+      propertyPath: umbralOcultacion
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1177591983667099565, guid: 227c1f35d6c7c254181191deac6df7b0, type: 3}
+      propertyPath: amplitudPulsoAlpha
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1177591983667099565, guid: 227c1f35d6c7c254181191deac6df7b0, type: 3}
+      propertyPath: amplitudPulsoEscala
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1177591983667099565, guid: 227c1f35d6c7c254181191deac6df7b0, type: 3}
+      propertyPath: propiedadIntensidad
+      value: _VidaIntensidad
+      objectReference: {fileID: 0}
+    - target: {fileID: 1177591983667099565, guid: 227c1f35d6c7c254181191deac6df7b0, type: 3}
+      propertyPath: ocultarRendererCuandoEstaEnReposo
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2605033121321575746, guid: 227c1f35d6c7c254181191deac6df7b0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 11.726002
@@ -22741,6 +22871,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4901666545644091156}
     - target: {fileID: 3341216774167969375, guid: 227c1f35d6c7c254181191deac6df7b0, type: 3}
+      propertyPath: objetoOndas
+      value: 
+      objectReference: {fileID: 658643317}
+    - target: {fileID: 3341216774167969375, guid: 227c1f35d6c7c254181191deac6df7b0, type: 3}
       propertyPath: overlayOndas
       value: 
       objectReference: {fileID: 48956029}
@@ -22754,7 +22888,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5577068047366406539, guid: 227c1f35d6c7c254181191deac6df7b0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.1001
+      value: 0.1207
       objectReference: {fileID: 0}
     - target: {fileID: 5577068047366406539, guid: 227c1f35d6c7c254181191deac6df7b0, type: 3}
       propertyPath: m_LocalPosition.z
@@ -22767,6 +22901,18 @@ PrefabInstance:
     - target: {fileID: 7602319919509299376, guid: 227c1f35d6c7c254181191deac6df7b0, type: 3}
       propertyPath: m_Name
       value: 1Cuadro Guitarrista
+      objectReference: {fileID: 0}
+    - target: {fileID: 7602319919509299376, guid: 227c1f35d6c7c254181191deac6df7b0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8232463414258352540, guid: 227c1f35d6c7c254181191deac6df7b0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8341805277569107044, guid: 227c1f35d6c7c254181191deac6df7b0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.0215
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -23424,7 +23570,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: bbf64422701cbb64989cbb986fd64d35, type: 2}
+  - {fileID: 2100000, guid: 09038ddf2187da34198b3ec60521472d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -24253,7 +24399,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 773ee0a6dc95906428b68498f38bddc2, type: 2}
+  - {fileID: 2100000, guid: 09038ddf2187da34198b3ec60521472d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -25535,7 +25681,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 45139155f7f208c4c9b5ba0ac8116629, type: 2}
+  - {fileID: 2100000, guid: 09038ddf2187da34198b3ec60521472d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -28608,17 +28754,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1509132541}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1509803114 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6147304453156795603, guid: 4e5f1938a6549bd4dbf2da7a65d957a6, type: 3}
-  m_PrefabInstance: {fileID: 1812111203505918765}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc21adb6b4763ff43a9963e1825e7e1a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HandSelectionAnimator
 --- !u!1 &1519307956
 GameObject:
   m_ObjectHideFlags: 0
@@ -32533,7 +32668,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 45139155f7f208c4c9b5ba0ac8116629, type: 2}
+  - {fileID: 2100000, guid: 09038ddf2187da34198b3ec60521472d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -39515,7 +39650,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7c2293ca0c8bed444873a79dc38a40fa, type: 2}
+  - {fileID: 2100000, guid: 09038ddf2187da34198b3ec60521472d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -42167,7 +42302,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: fa85366893a810d48becee752c669c10, type: 2}
+  - {fileID: 2100000, guid: 09038ddf2187da34198b3ec60521472d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -43145,11 +43280,11 @@ PrefabInstance:
     - target: {fileID: 633332198365341718, guid: 8a16fc4cebfa65c45b3023cd08d1da54, type: 3}
       propertyPath: animadorManoDerecha
       value: 
-      objectReference: {fileID: 5686134208879746594}
+      objectReference: {fileID: 951263323}
     - target: {fileID: 633332198365341718, guid: 8a16fc4cebfa65c45b3023cd08d1da54, type: 3}
       propertyPath: controladorGripManoDerecha
       value: 
-      objectReference: {fileID: 1509803114}
+      objectReference: {fileID: 951263322}
     - target: {fileID: 633332198365341718, guid: 8a16fc4cebfa65c45b3023cd08d1da54, type: 3}
       propertyPath: alEquipar.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -45450,11 +45585,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!95 &5686134208879746594 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 9025592879448990430, guid: 4e5f1938a6549bd4dbf2da7a65d957a6, type: 3}
-  m_PrefabInstance: {fileID: 1812111203505918765}
-  m_PrefabAsset: {fileID: 0}
 --- !u!23 &5706210388302509833
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -46277,11 +46407,11 @@ PrefabInstance:
     - target: {fileID: 1648627134683312683, guid: b126ec1280b4f1f488dd88b45fb08163, type: 3}
       propertyPath: animadorManoDerecha
       value: 
-      objectReference: {fileID: 5686134208879746594}
+      objectReference: {fileID: 951263323}
     - target: {fileID: 1648627134683312683, guid: b126ec1280b4f1f488dd88b45fb08163, type: 3}
       propertyPath: controladorGripManoDerecha
       value: 
-      objectReference: {fileID: 1509803114}
+      objectReference: {fileID: 951263322}
     - target: {fileID: 1648627134683312683, guid: b126ec1280b4f1f488dd88b45fb08163, type: 3}
       propertyPath: alEquipar.m_PersistentCalls.m_Calls.Array.size
       value: 2
