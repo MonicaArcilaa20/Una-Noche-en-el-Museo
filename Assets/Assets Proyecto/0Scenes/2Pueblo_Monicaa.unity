@@ -3058,7 +3058,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6598815579406187037, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5992,6 +5992,18 @@ PrefabInstance:
       propertyPath: embarqueXR
       value: 
       objectReference: {fileID: 84306355}
+    - target: {fileID: 3038107722379034948, guid: 4e5f1938a6549bd4dbf2da7a65d957a6, type: 3}
+      propertyPath: mostrarLogs
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3038107722379034948, guid: 4e5f1938a6549bd4dbf2da7a65d957a6, type: 3}
+      propertyPath: velocidadGiro
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 3038107722379034948, guid: 4e5f1938a6549bd4dbf2da7a65d957a6, type: 3}
+      propertyPath: soloMientrasSeMueve
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3088840844220288005, guid: 4e5f1938a6549bd4dbf2da7a65d957a6, type: 3}
       propertyPath: m_Name
       value: XR Origin (XR Rig) Variant
@@ -6040,22 +6052,6 @@ PrefabInstance:
       propertyPath: volumenGlobal
       value: 
       objectReference: {fileID: 1373183048}
-    - target: {fileID: 6409722791407847459, guid: 4e5f1938a6549bd4dbf2da7a65d957a6, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7276266515287385663, guid: 4e5f1938a6549bd4dbf2da7a65d957a6, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7276266515287385663, guid: 4e5f1938a6549bd4dbf2da7a65d957a6, type: 3}
-      propertyPath: m_LeftHandTurnInput.m_InputActionReference
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7276266515287385663, guid: 4e5f1938a6549bd4dbf2da7a65d957a6, type: 3}
-      propertyPath: m_RightHandTurnInput.m_InputActionReference
-      value: 
-      objectReference: {fileID: -6493913391331992944, guid: c348712bda248c246b8c49b3db54643f, type: 3}
     - target: {fileID: 9094963744214684630, guid: 4e5f1938a6549bd4dbf2da7a65d957a6, type: 3}
       propertyPath: m_Resource
       value: 
@@ -6215,7 +6211,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1590474774
 Transform:
   m_ObjectHideFlags: 0

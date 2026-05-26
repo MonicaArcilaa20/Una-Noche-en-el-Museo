@@ -2,18 +2,27 @@ using UnityEngine;
 
 public class AlinearCuerpoConCabeza : MonoBehaviour
 {
+    [Header("Referencias")]
     [SerializeField] private Transform headTransform;
+    [SerializeField] private CharacterController characterController;
+    [SerializeField] private BarcaEmbarqueXR embarqueXR;
+
+    [Header("Giro normal")]
     [SerializeField] private float velocidadGiro = 120f;
     [SerializeField] private float anguloMinimoParaGirar = 25f;
+
+    [Header("Giro en barca")]
+    [SerializeField] private bool usarAjustesEspecialesEnBarca = true;
+    [SerializeField] private float velocidadGiroEnBarca = 45f;
+    [SerializeField] private float anguloMinimoEnBarca = 40f;
+
+    [Header("Opciones")]
     [SerializeField] private bool soloMientrasSeMueve = false;
     [SerializeField] private float magnitudMinimaMovimiento = 0.1f;
+    [SerializeField] private bool girarAlrededorDeLaCabeza = true;
 
-    [Header("Bloqueo en barca")]
-    [SerializeField] private BarcaEmbarqueXR embarqueXR;
-    [SerializeField] private bool bloquearMientrasAbordo = true;
-
-    [Header("Opcional")]
-    [SerializeField] private CharacterController characterController;
+    [Header("Debug")]
+    [SerializeField] private bool mostrarLogs = false;
 
     private Vector3 ultimaPosicion;
 
@@ -30,11 +39,19 @@ public class AlinearCuerpoConCabeza : MonoBehaviour
         if (headTransform == null)
             return;
 
-        if (bloquearMientrasAbordo && embarqueXR != null && embarqueXR.JugadorAbordo)
-            return;
-
         if (soloMientrasSeMueve && !SeEstaMoviendo())
             return;
+
+        bool aBordo = embarqueXR != null && embarqueXR.JugadorAbordo;
+
+        float velocidadActual = velocidadGiro;
+        float anguloMinimoActual = anguloMinimoParaGirar;
+
+        if (aBordo && usarAjustesEspecialesEnBarca)
+        {
+            velocidadActual = velocidadGiroEnBarca;
+            anguloMinimoActual = anguloMinimoEnBarca;
+        }
 
         Vector3 forwardCabeza = headTransform.forward;
         forwardCabeza.y = 0f;
@@ -47,13 +64,23 @@ public class AlinearCuerpoConCabeza : MonoBehaviour
 
         float angulo = Vector3.SignedAngle(forwardCuerpo, forwardCabeza.normalized, Vector3.up);
 
-        if (Mathf.Abs(angulo) < anguloMinimoParaGirar)
+        if (Mathf.Abs(angulo) < anguloMinimoActual)
             return;
 
-        float paso = velocidadGiro * Time.deltaTime;
+        float paso = velocidadActual * Time.deltaTime;
         float giro = Mathf.Clamp(angulo, -paso, paso);
 
-        transform.Rotate(0f, giro, 0f, Space.World);
+        if (girarAlrededorDeLaCabeza)
+        {
+            transform.RotateAround(headTransform.position, Vector3.up, giro);
+        }
+        else
+        {
+            transform.Rotate(0f, giro, 0f, Space.World);
+        }
+
+        if (mostrarLogs)
+            Debug.Log($"[AlinearCuerpoConCabeza] Giro aplicado: {giro:F2} | Abordo: {aBordo}", this);
     }
 
     private bool SeEstaMoviendo()
