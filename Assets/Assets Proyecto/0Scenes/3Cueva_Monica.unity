@@ -13569,7 +13569,7 @@ GameObject:
   - component: {fileID: 1829381081}
   - component: {fileID: 1829381082}
   - component: {fileID: 1829381083}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: bloques
   m_TagString: Untagged
   m_Icon: {fileID: 0}
