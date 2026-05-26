@@ -2654,11 +2654,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AlinearCuerpoConCabeza
   headTransform: {fileID: 4398507154402415962}
-  velocidadGiro: 80
-  anguloMinimoParaGirar: 25
-  soloMientrasSeMueve: 1
-  magnitudMinimaMovimiento: 0.1
   characterController: {fileID: 7743246902071561906}
+  embarqueXR: {fileID: 0}
+  velocidadGiro: 40
+  anguloMinimoParaGirar: 25
+  usarAjustesEspecialesEnBarca: 1
+  velocidadGiroEnBarca: 45
+  anguloMinimoEnBarca: 40
+  soloMientrasSeMueve: 0
+  magnitudMinimaMovimiento: 0.1
+  girarAlrededorDeLaCabeza: 1
+  mostrarLogs: 1
 --- !u!1 &4398507152880268583 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 202364687, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
@@ -2746,7 +2752,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
+  m_Resource: {fileID: 8300000, guid: a599a14a832b1b74cb83fe918a0c9a81, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
