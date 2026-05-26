@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Unity.XR.CoreUtils;
@@ -25,6 +26,9 @@ public class BarcaEmbarqueXR : MonoBehaviour
 
     [Header("Opciones")]
     [SerializeField] private bool alinearYawConAsiento = false;
+    [SerializeField] private bool restaurarAutomaticamenteSiVieneEnBarca = true;
+    [SerializeField] private float retrasoRestauracion = 0.15f;
+    [SerializeField] private bool desactivarTriggerAlRestaurar = true;
     [SerializeField] private bool mostrarLogs = true;
     [SerializeField] private string idTramoBarca = "Pueblo";
 
@@ -63,11 +67,33 @@ public class BarcaEmbarqueXR : MonoBehaviour
     private void Start()
     {
         triggerEmbarque = GetComponent<Collider>();
-        
+
         if (promptSubirBarco != null)
             promptSubirBarco.SetActive(false);
 
-            
+        if (restaurarAutomaticamenteSiVieneEnBarca)
+            StartCoroutine(RutinaRestaurarSiVeniaEnBarca());
+    }
+
+    private IEnumerator RutinaRestaurarSiVeniaEnBarca()
+    {
+        yield return null;
+        yield return new WaitForSeconds(retrasoRestauracion);
+
+        if (EstadoGlobalBarca.Instance == null)
+            yield break;
+
+        string nombreEscenaActual = gameObject.scene.name;
+
+        if (!EstadoGlobalBarca.Instance.DebeRestaurarseEnEscena(nombreEscenaActual))
+            yield break;
+
+        if (mostrarLogs)
+            Debug.Log("[BarcaEmbarqueXR] Restaurando jugador a bordo en escena: " + nombreEscenaActual, this);
+
+        RestaurarAbordoEnAsiento();
+
+        EstadoGlobalBarca.Instance.ConfirmarLlegadaEscenaBarca(idTramoBarca);
     }
 
     private void Update()
@@ -109,7 +135,7 @@ public class BarcaEmbarqueXR : MonoBehaviour
             promptSubirBarco.SetActive(true);
 
         if (mostrarLogs)
-            Debug.Log("Jugador en zona de embarque.");
+            Debug.Log("[BarcaEmbarqueXR] Jugador en zona de embarque.", this);
     }
 
     private void OnTriggerExit(Collider other)
@@ -126,7 +152,7 @@ public class BarcaEmbarqueXR : MonoBehaviour
             promptSubirBarco.SetActive(false);
 
         if (mostrarLogs)
-            Debug.Log("Jugador salió de la zona de embarque.");
+            Debug.Log("[BarcaEmbarqueXR] Jugador salió de la zona de embarque.", this);
     }
 
     public void ActivarTriggerEmbarque(bool activo)
@@ -145,7 +171,7 @@ public class BarcaEmbarqueXR : MonoBehaviour
 
         if (xrOriginObjetivo == null || characterControllerObjetivo == null || seatAnchor == null)
         {
-            Debug.LogWarning("Faltan referencias en BarcaEmbarqueXR.");
+            Debug.LogWarning("[BarcaEmbarqueXR] Faltan referencias.", this);
             return;
         }
 
@@ -155,11 +181,7 @@ public class BarcaEmbarqueXR : MonoBehaviour
         if (promptSubirBarco != null)
             promptSubirBarco.SetActive(false);
 
-        foreach (MonoBehaviour locomocion in locomocionesADesactivar)
-        {
-            if (locomocion != null)
-                locomocion.enabled = false;
-        }
+        SetLocomocionActiva(false);
 
         characterControllerObjetivo.enabled = false;
         RecolocarEnAsiento();
@@ -168,7 +190,7 @@ public class BarcaEmbarqueXR : MonoBehaviour
         EstadoGlobalBarca.Instance?.MarcarAbordo(idTramoBarca);
 
         if (mostrarLogs)
-            Debug.Log("Jugador embarcado correctamente.");
+            Debug.Log("[BarcaEmbarqueXR] Jugador embarcado correctamente.", this);
     }
 
     public void Desembarcar()
@@ -177,16 +199,14 @@ public class BarcaEmbarqueXR : MonoBehaviour
             return;
 
         characterControllerObjetivo.enabled = false;
-
-        foreach (MonoBehaviour locomocion in locomocionesADesactivar)
-        {
-            if (locomocion != null)
-                locomocion.enabled = true;
-        }
-
+        SetLocomocionActiva(true);
         characterControllerObjetivo.enabled = true;
 
         jugadorAbordo = false;
+        jugadorEnZona = false;
+
+        if (triggerEmbarque != null)
+            triggerEmbarque.enabled = true;
 
         if (promptSubirBarco != null)
             promptSubirBarco.SetActive(false);
@@ -194,12 +214,57 @@ public class BarcaEmbarqueXR : MonoBehaviour
         EstadoGlobalBarca.Instance?.BajarDeBarca();
 
         if (mostrarLogs)
-            Debug.Log("Jugador desembarcado.");
+            Debug.Log("[BarcaEmbarqueXR] Jugador desembarcado.", this);
+    }
+
+    private void RestaurarAbordoEnAsiento()
+    {
+        if (xrOriginObjetivo == null || characterControllerObjetivo == null || seatAnchor == null)
+        {
+            Debug.LogWarning("[BarcaEmbarqueXR] No se pudo restaurar: faltan referencias.", this);
+            return;
+        }
+
+        jugadorAbordo = true;
+        jugadorEnZona = false;
+
+        if (promptSubirBarco != null)
+            promptSubirBarco.SetActive(false);
+
+        if (desactivarTriggerAlRestaurar && triggerEmbarque != null)
+            triggerEmbarque.enabled = false;
+
+        SetLocomocionActiva(false);
+
+        bool ccEstabaActivo = characterControllerObjetivo.enabled;
+        characterControllerObjetivo.enabled = false;
+
+        RecolocarEnAsiento();
+
+        characterControllerObjetivo.enabled = ccEstabaActivo;
+
+        if (mostrarLogs)
+            Debug.Log("[BarcaEmbarqueXR] Jugador restaurado sentado en el barco.", this);
+    }
+
+    private void SetLocomocionActiva(bool activa)
+    {
+        if (locomocionesADesactivar == null)
+            return;
+
+        foreach (MonoBehaviour locomocion in locomocionesADesactivar)
+        {
+            if (locomocion != null)
+                locomocion.enabled = activa;
+        }
     }
 
     private void AlinearYawConAsiento()
     {
-        Transform camara = xrOriginObjetivo.Camera != null ? xrOriginObjetivo.Camera.transform : Camera.main != null ? Camera.main.transform : null;
+        Transform camara = xrOriginObjetivo.Camera != null
+            ? xrOriginObjetivo.Camera.transform
+            : Camera.main != null ? Camera.main.transform : null;
+
         if (camara == null)
             return;
 
@@ -231,5 +296,4 @@ public class BarcaEmbarqueXR : MonoBehaviour
 
         characterControllerObjetivo.enabled = ccEstabaActivo;
     }
-
 }
